@@ -1,0 +1,65 @@
+﻿﻿@using PROJECT_CAREERCIN.Models.DTO
+@model List<LowonganPekerjaanViewDTO>
+
+@{
+    Layout = "_LayoutUser";
+}
+
+<section id="home-section">
+    <h2 class="section-title">Recommended for you</h2>
+
+    <div class="job-cards">
+        @foreach (var data in Model)
+        {
+            <div class="job-card">
+                <div class="job-card-header">
+                    @* <a href="@Url.Action("DetailLowongan", "DashboardUser", new { id = data.Id })">
+
+                </a> *@
+                    <img src="@data.Logo" alt="Logo Perusahaan" class="company-logo">
+
+                    <div class="job-info">
+                        <h3 class="job-title">@data.Posisi</h3>
+                        <p class="company-name">@data.NamaPerusahaan</p>
+                        <p class="job-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Jakarta, Indonesia (Remote)
+                        </p>
+                    </div>
+
+                    <form method="post" action="@Url.Action("LowonganTersimpan", "DashboardUser")" class="quick-apply-btn">
+                        <input type="hidden" name="lowonganId" value="@data.Id" />
+                        <button type="submit" class="job-save-btn" onclick="toggleSave(this)">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </form>
+
+
+
+                </div>
+
+                <div class="job-card-body">
+                    <p class="job-description">@data.Deskripsi</p>
+                    <p class="job-posted">Posted 2 days ago</p>
+                </div>
+
+                <div class="job-card-footer">
+                    <span class="job-type">@data.NamaKategori</span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("FormLamaran", "DashboardUser", new { lowonganId = data.Id })" class="quick-apply-btn">
+                            Quick Apply
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "LoginPage")" class="quick-apply-btn">
+                            Login to Apply
+                        </a>
+                    }
+
+                </div>
+            </div>
+        }
+    </div>
+</section>
