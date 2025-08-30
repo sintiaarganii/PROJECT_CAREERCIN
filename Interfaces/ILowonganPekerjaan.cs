@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using PROJECT_CAREERCIN.Models.DB;
 using PROJECT_CAREERCIN.Models.DTO;
+using X.PagedList;
 
 namespace PROJECT_CAREERCIN.Interfaces
 {
     public interface ILowonganPekerjaan
     {
-        public List<LowonganPekerjaanViewDTO> GetListLowonganPekerjaan();
+        public IPagedList<LowonganPekerjaanViewDTO> GetListLowonganPekerjaan(int page, int pageSize, string searchTerm = "");
         public LowonganPekerjaan GetLowonganPekerjaanById(int id);
         public bool AddLowonganPekerjaan(LowonganPekerjaanAddUpdateDTO request);
         public bool UpdateLowonganPekerjaan(LowonganPekerjaanAddUpdateDTO lowonganPekerjaanAddUpdateDTO);
         public bool DeleteLowonganPekerjaan(int id);
-        public List<SelectListItem> LowonganPekerjaan();
+        public List<LowonganPekerjaanViewDTO> SearchLowonganPekerjaan(string keyword);
+        public List<LowonganPekerjaanViewDTO> GetListLowonganPekerjaanForUser();
+        public List<NotificationsDTO> GetNotificationsForUser(int userId);
+        public bool DeleteNotifications(int id);
     }
 }

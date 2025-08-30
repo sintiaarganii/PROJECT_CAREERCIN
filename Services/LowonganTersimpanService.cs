@@ -4,6 +4,8 @@ using PROJECT_CAREERCIN.Models;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using PROJECT_CAREERCIN.Interfaces;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace PROJECT_CAREERCIN.Services
 {
@@ -20,10 +22,13 @@ namespace PROJECT_CAREERCIN.Services
         public List<LowonganTersimpanViewDTO> GetListLowonganTersimpan()
         {
             var userId = GetCurrentUserId();
-            var data = _context.LowonganTersimpans.Include(y => y.Lowongan).Where(x => x.PenggunaId == userId)
+            var data = _context.LowonganTersimpans.Include(y => y.Lowongan).ThenInclude(p => p.Perusahaan).Where(x => x.PenggunaId == userId)
                         .Select(x => new LowonganTersimpanViewDTO
                         {
                             Id = x.Id,
+                            LowonganId = x.LowonganId,
+                            Logo = "/upload/" + Path.GetFileName(x.Lowongan.Perusahaan.LogoPath),
+                            NamaPerusahaan = x.Lowongan.Perusahaan.NamaPerusahaan,
                             Posisi = x.Lowongan.Posisi,
                             Deskripsi = x.Lowongan.Deskripsi,
                             TanggalDibuat = x.Lowongan.TanggalDibuat,
@@ -79,5 +84,6 @@ namespace PROJECT_CAREERCIN.Services
             _context.SaveChanges();
             return true;
         }
+
     }
 }

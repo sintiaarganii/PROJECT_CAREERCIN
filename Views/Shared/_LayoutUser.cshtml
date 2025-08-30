@@ -1,300 +1,4 @@
-﻿﻿@* <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BbibbJobStreet - Cari Lowongan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-        }
-
-        /* Header Styles */
-        .header {
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-            .header .logo {
-                display: flex;
-                align-items: center;
-                color: #3498db;
-                font-size: 24px;
-                font-weight: bold;
-            }
-
-                .header .logo i {
-                    margin-right: 10px;
-                }
-
-            .header nav ul {
-                list-style: none;
-                display: flex;
-                gap: 20px;
-            }
-
-                .header nav ul li a {
-                    color: #2c3e50;
-                    text-decoration: none;
-                    font-size: 16px;
-                    transition: color 0.3s ease;
-                }
-
-                    .header nav ul li a:hover {
-                        color: #3498db;
-                    }
-
-        /* Search Section */
-        .search-section {
-            margin: 100px 20px 20px;
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-            .search-section h1 {
-                color: #2c3e50;
-                margin-bottom: 20px;
-            }
-
-        .search-bar {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-            .search-bar input {
-                padding: 10px;
-                border: 1px solid #e0e0e0;
-                border-radius: 5px;
-                width: 70%;
-                font-size: 16px;
-            }
-
-            .search-bar button {
-                padding: 10px 20px;
-                background-color: #3498db;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background 0.3s ease;
-            }
-
-                .search-bar button:hover {
-                    background-color: #2980b9;
-                }
-
-        /* Job Listings */
-        .job-listings {
-            margin: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .job-card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-            .job-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            }
-
-            .job-card h3 {
-                color: #3498db;
-                margin-bottom: 10px;
-            }
-
-            .job-card p {
-                color: #2c3e50;
-                margin-bottom: 10px;
-            }
-
-            .job-card .details {
-                font-size: 14px;
-                color: #666;
-                margin-bottom: 15px;
-            }
-
-            .job-card .apply-btn {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #3498db;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 5px;
-                transition: background 0.3s ease;
-            }
-
-                .job-card .apply-btn:hover {
-                    background-color: #2980b9;
-                }
-
-        /* Footer */
-        .footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-            .footer p {
-                font-size: 14px;
-            }
-
-        /* Responsive Design */
-        @@media (max-width: 768px) {
-            .header nav ul
-
-        {
-            flex-direction: column;
-            gap: 10px;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        .header nav ul.active {
-            display: flex;
-        }
-
-        .toggle-nav {
-            display: block;
-            font-size: 24px;
-            cursor: pointer;
-            color: #2c3e50;
-        }
-
-        .search-bar {
-            flex-direction: column;
-            align-items: center;
-        }
-
-            .search-bar input {
-                width: 100%;
-            }
-
-            .search-bar button {
-                width: 100%;
-                max-width: 200px;
-            }
-
-        }
-
-        /* Animasi Fade In */
-        @@keyframes fadeIn {
-            from
-
-        {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        }
-
-        .search-section, .job-card, .footer {
-            animation: fadeIn 0.5s ease-in;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="logo"><i class="fas fa-briefcase"></i> BbibbJobStreet</div>
-        <nav>
-            <div class="toggle-nav"><i class="fas fa-bars"></i></div>
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="#"><i class="fas fa-search"></i> Cari Lowongan</a></li>
-                <li><a href="#"><i class="fas fa-user"></i> Profil</a></li>
-                <li><a href="#"><i class="fas fa-bookmark"></i> Lowongan Tersimpan</a></li>
-                <li>
-
-                    <form asp-controller="LoginPage" asp-action="Logout" method="post" style="display: inline;">
-                        <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer;">
-                            <i class="fas fa-sign-out-alt"></i> Keluar
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    @RenderBody()
-
-    <div class="footer">
-        <p>&copy; 2025 BbibbJobStreet. All Rights Reserved.</p>
-    </div>
-
-    <script>
-        // Toggle navigation for mobile
-        document.querySelector('.toggle-nav').addEventListener('click', () => {
-            document.querySelector('.header nav ul').classList.toggle('active');
-        });
-    </script>
-</body>
-</html> *@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -343,16 +47,13 @@
         }
 
         @@keyframes slideDown {
-            from
+            from {
+                transform: translateY(-100%);
+            }
 
-        {
-            transform: translateY(-100%);
-        }
-
-        to {
-            transform: translateY(0);
-        }
-
+            to {
+                transform: translateY(0);
+            }
         }
 
         .header-container {
@@ -507,16 +208,13 @@
         }
 
         @@keyframes fadeIn {
-            from
+            from {
+                opacity: 0;
+            }
 
-        {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-
+            to {
+                opacity: 1;
+            }
         }
 
         .content-wrapper {
@@ -538,18 +236,15 @@
         }
 
         @@keyframes slideInLeft {
-            from
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
 
-        {
-            transform: translateX(-20px);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .sidebar-section {
@@ -604,18 +299,15 @@
         }
 
         @@keyframes slideInRight {
-            from
+            from {
+                transform: translateX(20px);
+                opacity: 0;
+            }
 
-        {
-            transform: translateX(20px);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .section-title {
@@ -643,18 +335,15 @@
         }
 
         @@keyframes fadeInUp {
-            from
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
 
-        {
-            transform: translateY(20px);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .job-card:hover {
@@ -1126,78 +815,69 @@
 
         /* Responsive Design */
         @@media (max-width: 992px) {
-            .content-wrapper
+            .content-wrapper {
+                flex-direction: column;
+            }
 
-        {
-            flex-direction: column;
-        }
+            .sidebar {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
 
-        .sidebar {
-            width: 100%;
-            position: static;
-            margin-bottom: 20px;
-        }
-
-        .job-cards {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        }
-
+            .job-cards {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
         }
 
         @@media (max-width: 768px) {
-            .header-container
-
-        {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .logo {
-            margin-bottom: 10px;
-        }
-
-        .search-bar {
-            margin: 10px 0;
-        }
-
-        .nav-links {
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-            .nav-links li {
-                margin-left: 0;
+            .header-container {
+                flex-direction: column;
+                align-items: stretch;
             }
 
-        .profile-header {
-            flex-direction: column;
-            text-align: center;
-        }
+            .logo {
+                margin-bottom: 10px;
+            }
 
-        .profile-avatar {
-            margin-right: 0;
-            margin-bottom: 20px;
-        }
+            .search-bar {
+                margin: 10px 0;
+            }
 
+            .nav-links {
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+
+                .nav-links li {
+                    margin-left: 0;
+                }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
         }
 
         @@media (max-width: 576px) {
-            .job-cards
+            .job-cards {
+                grid-template-columns: 1fr;
+            }
 
-        {
-            grid-template-columns: 1fr;
-        }
+            .job-card-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
 
-        .job-card-footer {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .quick-apply-btn {
-            width: 100%;
-        }
-
+            .quick-apply-btn {
+                width: 100%;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -1212,31 +892,35 @@
             </a>
 
             <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for jobs, companies, or keywords">
+                <form asp-action="Index" method="get">
+                    <i class="fas fa-search"></i>
+                    <input type="text" name="search" placeholder="Search for jobs, companies, or keywords"
+                           value="@Context.Request.Query["search"]">
+                    <button type="submit" style="display: none;"></button> <!-- Hidden submit button -->
+                </form>
             </div>
 
             <ul class="nav-links">
                 <li>
-                    <a href="@Url.Action("Index", "DashboardUser")" class="quick-apply-btn" )">
+                    <a href="/DashboardUser/Index" class="active" onclick="showSection('home')">
                         <i class="fas fa-home"></i>
                         <span>Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" onclick="showSection('notifications')">
+                    <a href="/DashboardUser/Notifications" onclick="showSection('notifications')">
                         <i class="fas fa-bell"></i>
                         <span>Notifications</span>
                     </a>
                 </li>
                 <li>
-                    <a href="@Url.Action("LowonganTersimpan", "DashboardUser")" class="quick-apply-btn" )">
+                    <a href="/DashboardUser/LowonganTersimpan" onclick="showSection('saved-jobs')">
                         <i class="fas fa-bookmark"></i>
                         <span>Saved</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" onclick="showSection('history')">
+                    <a href="/DashboardUser/HistoryLamaran" onclick="showSection('history')">
                         <i class="fas fa-history"></i>
                         <span>History</span>
                     </a>
@@ -1272,19 +956,19 @@
                 <aside class="sidebar">
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">Menu</h3>
-                        <a href="@Url.Action("Index", "DashboardUser")" class="quick-apply-btn" )">
+                        <a href="/DashboardUser/Index" class="sidebar-link active" onclick="showSection('home')">
                             <i class="fas fa-home"></i>
                             <span>Home</span>
                         </a>
-                        <a href="#" class="sidebar-link" onclick="showSection('notifications')">
+                        <a href="/DashboardUser/Notifications" class="sidebar-link" onclick="showSection('notifications')">
                             <i class="fas fa-bell"></i>
                             <span>Notifications</span>
                         </a>
-                        <a href="@Url.Action("LowonganTersimpan", "DashboardUser")" class="quick-apply-btn" )">
+                        <a href="/DashboardUser/LowonganTersimpan" class="sidebar-link" onclick="showSection('saved-jobs')">
                             <i class="fas fa-bookmark"></i>
-                            <span>Saved</span>
+                            <span>Saved Jobs</span>
                         </a>
-                        <a href="#" class="sidebar-link" onclick="showSection('history')">
+                        <a href="/DashboardUser/HistoryLamaran" class="sidebar-link" onclick="showSection('history')">
                             <i class="fas fa-history"></i>
                             <span>Application History</span>
                         </a>
@@ -1328,138 +1012,8 @@
                     <!-- Home Section (Default) -->
                     @RenderBody()
                     <!-- Notifications Section (Hidden by default) -->
-                    <section id="notifications-section" class="hidden-section">
-                        <h2 class="section-title">Notifications</h2>
-
-                        <div class="notification-card">
-                            <div class="notification-icon">
-                                <i class="fas fa-briefcase"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h3 class="notification-title">New job matches your profile: Frontend Developer at Google</h3>
-                                <p class="notification-time">10 minutes ago</p>
-                            </div>
-                            <div class="notification-actions">
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-bookmark"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="notification-card">
-                            <div class="notification-icon">
-                                <i class="fas fa-user-check"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h3 class="notification-title">Your application for Backend Engineer at Tokopedia has been viewed</h3>
-                                <p class="notification-time">2 hours ago</p>
-                            </div>
-                            <div class="notification-actions">
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-bookmark"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="notification-card">
-                            <div class="notification-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h3 class="notification-title">15 new connections are waiting for your response</h3>
-                                <p class="notification-time">1 day ago</p>
-                            </div>
-                            <div class="notification-actions">
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-bookmark"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="notification-card">
-                            <div class="notification-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h3 class="notification-title">Message from John Doe at Microsoft about UX Designer position</h3>
-                                <p class="notification-time">2 days ago</p>
-                            </div>
-                            <div class="notification-actions">
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button class="notification-action-btn">
-                                    <i class="fas fa-bookmark"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </section>
-
                     <!-- Saved Jobs Section (Hidden by default) -->
                     <!-- Application History Section (Hidden by default) -->
-                    <section id="history-section" class="hidden-section">
-                        <h2 class="section-title">Application History</h2>
-
-                        <div class="application-history">
-                            <div class="application-item">
-                                <div class="application-header">
-                                    <img src="https://logo.clearbit.com/google.com" alt="Google" class="application-company-logo">
-                                    <div class="application-info">
-                                        <h3 class="application-job-title">Frontend Developer</h3>
-                                        <p class="application-company-name">Google</p>
-                                    </div>
-                                    <span class="application-date">Applied: 2 days ago</span>
-                                    <span class="application-status status-reviewed">Under Review</span>
-                                </div>
-                            </div>
-
-                            <div class="application-item">
-                                <div class="application-header">
-                                    <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft" class="application-company-logo">
-                                    <div class="application-info">
-                                        <h3 class="application-job-title">UX Designer</h3>
-                                        <p class="application-company-name">Microsoft</p>
-                                    </div>
-                                    <span class="application-date">Applied: 1 week ago</span>
-                                    <span class="application-status status-pending">Pending</span>
-                                </div>
-                            </div>
-
-                            <div class="application-item">
-                                <div class="application-header">
-                                    <img src="https://logo.clearbit.com/amazon.com" alt="Amazon" class="application-company-logo">
-                                    <div class="application-info">
-                                        <h3 class="application-job-title">Cloud Architect</h3>
-                                        <p class="application-company-name">Amazon Web Services</p>
-                                    </div>
-                                    <span class="application-date">Applied: 2 weeks ago</span>
-                                    <span class="application-status status-rejected">Rejected</span>
-                                </div>
-                            </div>
-
-                            <div class="application-item">
-                                <div class="application-header">
-                                    <img src="https://logo.clearbit.com/facebook.com" alt="Facebook" class="application-company-logo">
-                                    <div class="application-info">
-                                        <h3 class="application-job-title">Product Manager</h3>
-                                        <p class="application-company-name">Meta</p>
-                                    </div>
-                                    <span class="application-date">Applied: 1 month ago</span>
-                                    <span class="application-status status-accepted">Accepted</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
                     <!-- Profile Section (Hidden by default) -->
                     <section id="profile-section" class="hidden-section">
                         <div class="profile-section">
@@ -1539,6 +1093,29 @@
     </footer>
 
     <script>
+
+
+        // Handle form submission on input change with debounce
+        const searchInput = document.querySelector('.search-bar input');
+        let searchTimeout;
+
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                this.form.submit();
+            }, 500); // Submit setelah 500ms tidak ada input
+        });
+
+        // Submit form when pressing Enter
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.form.submit();
+            }
+        });
+
+
+
         // Function to toggle between sections
         function showSection(sectionId) {
             // Hide all sections

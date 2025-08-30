@@ -462,7 +462,7 @@
                     @* <button type="submit" class="btn btn-primary">Kirim Lamaran</button> *@
 
                     <div class="action-buttons">
-                        <a href="/DashboardUser/Index">
+                        <a href="/DashboardUser/LowonganTersimpan">
                             <button type="button" class="btn btn-secondary" id="backBtn">
                                 <i class="fas fa-arrow-left"></i> Kembali
                             </button>
@@ -470,6 +470,7 @@
                         <button type="submit" class="btn btn-primary" id="submitBtn">
                             <i class="fas fa-paper-plane"></i> Kirim Lamaran
                         </button>
+
                     </div>
                 </form>
 
@@ -493,12 +494,12 @@
 
     <script>
         // Animasi dan interaktivitas form
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // File upload handler
             const fileInput = document.getElementById('resume');
             const fileNameDisplay = document.getElementById('fileName');
 
-            fileInput.addEventListener('change', function() {
+            fileInput.addEventListener('change', function () {
                 if (this.files.length > 0) {
                     fileNameDisplay.textContent = this.files[0].name;
 
@@ -514,32 +515,32 @@
             });
 
             // Form submission handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('jobApplicationForm');
-            const applicationForm = document.getElementById('applicationForm');
-            const successMessage = document.getElementById('successMessage');
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('jobApplicationForm');
+                const applicationForm = document.getElementById('applicationForm');
+                const successMessage = document.getElementById('successMessage');
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); // Mencegah submit default
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault(); // Mencegah submit default
 
-                const submitBtn = document.getElementById('submitBtn');
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-                submitBtn.disabled = true;
+                    const submitBtn = document.getElementById('submitBtn');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+                    submitBtn.disabled = true;
 
-                // Untuk demo, gunakan setTimeout
-                setTimeout(() => {
-                    applicationForm.style.display = 'none';
-                    successMessage.style.display = 'block';
-                    document.querySelector('.progress-bar').style.width = '100%';
+                    // Untuk demo, gunakan setTimeout
+                    setTimeout(() => {
+                        applicationForm.style.display = 'none';
+                        successMessage.style.display = 'block';
+                        document.querySelector('.progress-bar').style.width = '100%';
 
-                    // Untuk submit sebenarnya, uncomment ini:
-                    // this.submit();
-                }, 2000);
+                        // Untuk submit sebenarnya, uncomment ini:
+                        // this.submit();
+                    }, 2000);
+                });
             });
-        });
 
             // Tombol kembali
-            document.getElementById('backBtn').addEventListener('click', function() {
+            document.getElementById('backBtn').addEventListener('click', function () {
                 // Animasi sebelum kembali
                 this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kembali...';
                 setTimeout(() => {
@@ -548,7 +549,7 @@
             });
 
             // Tombol beranda
-            document.getElementById('homeBtn').addEventListener('click', function() {
+            document.getElementById('homeBtn').addEventListener('click', function () {
                 window.location.href = 'index.html';
             });
         });

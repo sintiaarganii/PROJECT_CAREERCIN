@@ -1,4 +1,4 @@
-﻿﻿@{
+﻿@{
     Layout = null;
 }
 
@@ -14,137 +14,238 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', 'Arial', sans-serif;
         }
 
         body {
-            background-color: #000000;
+            background: linear-gradient(135deg, #000000, #1a1a2e, #16213e);
             color: #FFFFFF;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            padding: 20px;
         }
 
         .container {
             text-align: center;
             padding: 40px;
-            max-width: 800px;
-            width: 90%;
+            max-width: 1200px;
+            width: 100%;
         }
 
         h1 {
-            font-size: 3rem;
-            color: #1E90FF;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #1E90FF, #00BFFF, #87CEFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
-            animation: fadeIn 1s ease-in-out;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
+            animation: fadeIn 1s ease-in-out, glow 2s infinite alternate;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #1E90FF, #00BFFF);
+            border-radius: 3px;
         }
 
         .card-container {
             display: flex;
-            justify-content: space-around;
-            gap: 20px;
+            justify-content: center;
+            gap: 30px;
             flex-wrap: wrap;
+            margin-top: 30px;
         }
 
         .card {
-            background-color: #FFFFFF;
-            color: #000000;
-            width: 300px;
-            padding: 30px;
-            border-radius: 15px;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            color: #FFFFFF;
+            width: 320px;
+            padding: 40px 30px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(30, 144, 255, 0.3);
         }
 
-            .card:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 10px 20px rgba(30, 144, 255, 0.5);
-            }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(30, 144, 255, 0.1), rgba(0, 0, 0, 0));
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
 
-            .card i {
-                font-size: 3.5rem;
-                color: #1E90FF;
-                margin-bottom: 20px;
-                animation: iconPulse 2s infinite;
-            }
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(30, 144, 255, 0.4);
+        }
 
-            .card h2 {
-                font-size: 1.8rem;
-                margin-bottom: 10px;
-            }
+        .card:hover::before {
+            transform: rotate(45deg) translate(20%, 20%);
+        }
 
-            .card p {
-                font-size: 1rem;
-                color: #333333;
-            }
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card i {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            animation: iconPulse 3s infinite;
+            display: inline-block;
+        }
+
+        .card:nth-child(1) i {
+            color: #1E90FF; /* Biru untuk Pelamar */
+        }
+
+        .card:nth-child(2) i {
+            color: #32CD32; /* Hijau untuk Perusahaan */
+        }
+
+        .card:nth-child(3) i {
+            color: #FF4500; /* Jingga untuk Admin */
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #CCCCCC;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
 
         .btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #1E90FF;
+            padding: 12px 30px;
+            background: linear-gradient(to right, #1E90FF, #00BFFF);
             color: #FFFFFF;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 50px;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(30, 144, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-            .btn:hover {
-                background-color: #0066CC;
-            }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #0066CC, #1E90FF);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
 
+        .btn:hover {
+            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.6);
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        /* Animasi */
         @@keyframes fadeIn {
-            0%
-
-        {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @@keyframes iconPulse {
-            0%
-
-        {
-            transform: scale(1);
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
-        50% {
-            transform: scale(1.2);
+        @@keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(30, 144, 255, 0.8), 0 0 30px rgba(30, 144, 255, 0.6);
+            }
         }
 
-        100% {
-            transform: scale(1);
+        /* Responsivitas */
+        @@media (max-width: 1100px) {
+            .card-container {
+                gap: 20px;
+            }
+            .card {
+                width: 280px;
+            }
         }
 
+        @@media (max-width: 900px) {
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 100%;
+                max-width: 500px;
+            }
         }
 
         @@media (max-width: 600px) {
-            h1
-
-        {
-            font-size: 2rem;
-        }
-
-        .card {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
+            h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 20px;
+            }
+            .card {
+                padding: 30px 20px;
+            }
+            .card i {
+                font-size: 3.5rem;
+            }
+            .card h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -153,18 +254,43 @@
         <h1>Pilih Peran Anda</h1>
         <div class="card-container">
             <div class="card">
-                <i class="fas fa-user-tie"></i>
-                <h2>Pelamar</h2>
-                <p>Cari pekerjaan impian Anda dan bangun karier yang sukses!</p>
-                <a href="/LoginAndRegisterPage/LoginUser" class="btn">Pilih sebagai Pelamar</a>
+                <div class="card-content">
+                    <i class="fas fa-user-tie"></i>
+                    <h2>Pelamar</h2>
+                    <p>Cari pekerjaan impian Anda dan bangun karier yang sukses! Daftarkan diri Anda dan temukan lowongan yang sesuai dengan keahlian.</p>
+                    <a href="/LoginAndRegisterPage/LoginUser" class="btn">Pilih sebagai Pelamar</a>
+                </div>
             </div>
             <div class="card">
-                <i class="fas fa-building"></i>
-                <h2>Perusahaan</h2>
-                <p>Temukan talenta terbaik untuk mengembangkan bisnis Anda!</p>
-                <a href="/LoginAndRegisterPage/LoginPerusahaan" class="btn">Pilih sebagai Perusahaan</a>
+                <div class="card-content">
+                    <i class="fas fa-building"></i>
+                    <h2>Perusahaan</h2>
+                    <p>Temukan talenta terbaik untuk mengembangkan bisnis Anda! Pasang lowongan dan kelola aplikasi dengan mudah.</p>
+                    <a href="/LoginAndRegisterPage/LoginPerusahaan" class="btn">Pilih sebagai Perusahaan</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <i class="fas fa-cogs"></i>
+                    <h2>Administrator</h2>
+                    <p>Kelola sistem dan pantau aktivitas pengguna. Jaga platform tetap berjalan lancar dan aman untuk semua pengguna.</p>
+                    <a href="/LoginAndRegisterPage/LoginAdmin" class="btn">Pilih sebagai Admin</a>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Menambahkan efek staggered animation untuk card
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+                card.style.animation = 'fadeIn 0.8s ease forwards';
+                card.style.opacity = '0';
+            });
+        });
+    </script>
 </body>
 </html>

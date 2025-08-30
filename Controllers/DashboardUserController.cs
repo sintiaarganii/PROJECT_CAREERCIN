@@ -8,25 +8,41 @@ namespace PROJECT_CAREERCIN.Controllers
 {
     public class DashboardUserController : Controller
     {
-
         private readonly ILowonganPekerjaan _lowonganPekerjaan;
         private readonly ILamaran _lamaran;
         private readonly ILowonganTersimpan _lowonganTersimpan;
+        private readonly IHistoryLamaran _historyLamaran;
 
-        public DashboardUserController(ILowonganPekerjaan lowonganPekerjaan, ILamaran lamaran, ILowonganTersimpan lowonganTersimpan)
+        public DashboardUserController(ILowonganPekerjaan lowonganPekerjaan, ILamaran lamaran, ILowonganTersimpan lowonganTersimpan, IHistoryLamaran historyLamaran)
         {
             _lowonganPekerjaan = lowonganPekerjaan;
             _lamaran = lamaran;
             _lowonganTersimpan = lowonganTersimpan;
+            _historyLamaran = historyLamaran;
         }
 
-        public IActionResult Index()
+
+        //================ Lowongan Pekerjaan =============\\
+
+        public IActionResult Index(string search)
         {
-            var data = _lowonganPekerjaan.GetListLowonganPekerjaan();
-            return View(data);
+            if (!string.IsNullOrEmpty(search))
+            {
+                // Jika ada parameter search, gunakan method search
+                var searchResults = _lowonganPekerjaan.SearchLowonganPekerjaan(search);
+                return View(searchResults);
+            }
+            else
+            {
+                // Jika tidak ada parameter search, tampilkan semua
+                var data = _lowonganPekerjaan.GetListLowonganPekerjaanForUser();
+                return View(data);
+            }
         }
 
-        [Authorize]
+
+
+        //=================  Form Lamaran Pekerjaan ===============\\
         [HttpGet]
         public IActionResult FormLamaran(int lowonganId)
         {
@@ -38,11 +54,11 @@ namespace PROJECT_CAREERCIN.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> FormLamaran(LamaranAddUpdateDTO lamaranAddUpdateDTO, int lowonganId)
         {
             // Ambil UserId dari JWT token
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
 
             if (string.IsNullOrEmpty(userIdClaim))
             {
@@ -74,6 +90,9 @@ namespace PROJECT_CAREERCIN.Controllers
         }
 
 
+
+
+        //================ Lowongan Tersimpan =============\\
         public IActionResult LowonganTersimpan()
         {
             var data = _lowonganTersimpan.GetListLowonganTersimpan();
@@ -109,5 +128,65 @@ namespace PROJECT_CAREERCIN.Controllers
             return View(lowonganTersimpan);
         }
 
+        [HttpPost]
+        public IActionResult DeleteLowonganTersimpan(int id)
+        {
+            var data = _lowonganTersimpan.DeleteLowonganTersimpan(id);
+            if (data)
+            {
+                return RedirectToAction(nameof(LowonganTersimpan));
+            }
+            return BadRequest("Gagal menghapus.");
+        }
+
+
+
+
+        //============== History Lamaran ==============\\
+
+        public IActionResult HistoryLamaran()
+        {
+            var data = _historyLamaran.GetListHistoryLowongan();
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteHistoryLamaran(int id)
+        {
+            var data = _historyLamaran.DeletelamaranTersimpan(id);
+            if (data)
+            {
+                return RedirectToAction(nameof(HistoryLamaran));
+            }
+            return BadRequest("Gagal menghapus.");
+        }
+
+
+
+
+        //================ Notifications =============\\
+        public IActionResult Notifications()
+        {
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+                return Unauthorized();
+
+            int userId = int.Parse(userIdClaim);
+
+            var data = _lowonganPekerjaan.GetNotificationsForUser(userId);
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteNotifications(int id)
+        {
+            var data = _lowonganPekerjaan.DeleteNotifications(id);
+            if (data)
+            {
+                return RedirectToAction(nameof(Notifications));
+            }
+            return BadRequest("Gagal menghapus.");
+        }
     }
 }

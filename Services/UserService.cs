@@ -65,6 +65,7 @@ namespace PROJECT_CAREERCIN.Services
                     PasswordHash = passwordHash,
                     ProfileImage = "",
                     CoverImage = "",
+                    Posisi = registerDTO.Posisi,
                     Role = "User",
                     CreatedAt = DateTime.Now,
                     Status = GeneralStatus.GeneralStatusData.Active

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PROJECT_CAREERCIN.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,6 +83,8 @@ namespace PROJECT_CAREERCIN.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Role = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Posisi = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ProfileImage = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CoverImage = table.Column<string>(type: "longtext", nullable: false)
@@ -107,12 +109,15 @@ namespace PROJECT_CAREERCIN.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Judul = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Alamat = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Deskripsi = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Posisi = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TanggalDibuat = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     KategoriId = table.Column<int>(type: "int", nullable: false),
                     PerusahaanId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -153,7 +158,8 @@ namespace PROJECT_CAREERCIN.Migrations
                     CV = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    TanggalDilamar = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    TanggalDilamar = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,8 +241,8 @@ namespace PROJECT_CAREERCIN.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CoverImage", "CreatedAt", "Email", "LastUpdatedAt", "PasswordHash", "ProfileImage", "Role", "Status", "Username" },
-                values: new object[] { 1, "", new DateTime(2025, 8, 10, 22, 33, 7, 843, DateTimeKind.Local).AddTicks(6689), "admin@example.com", null, "$2a$11$9FwpxYg.DvKYvWKICvEpiehua/K2o5fdi9YRm76MY1GG4LGXL9baC", "", "Admin", 0, "admin" });
+                columns: new[] { "Id", "CoverImage", "CreatedAt", "Email", "LastUpdatedAt", "PasswordHash", "Posisi", "ProfileImage", "Role", "Status", "Username" },
+                values: new object[] { 1, "", new DateTime(2025, 8, 21, 14, 49, 31, 524, DateTimeKind.Local).AddTicks(4112), "admin@example.com", null, "$2a$11$a8KUh9G7QVOVU1kjb/M2WOmZyXA4MQZOwz4BVQhMYioWx10g9Xpfi", "Administrator", "", "Admin", 0, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lamarans_LowonganId",

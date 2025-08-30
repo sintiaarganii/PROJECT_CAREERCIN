@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PROJECT_CAREERCIN.Interfaces;
+using PROJECT_CAREERCIN.Models;
 using PROJECT_CAREERCIN.Models.DB;
 using PROJECT_CAREERCIN.Models.DTO;
 
@@ -10,94 +11,121 @@ namespace PROJECT_CAREERCIN.Controllers
         private readonly IKategoriPekerjaan _kategoriPekerjaan;
         private readonly ILowonganPekerjaan _lowonganPekerjaan;
         private readonly IPerusahaan _perusahaan;
-        public DashboardPerusahaanController(IKategoriPekerjaan kategoriPekerjaan, ILowonganPekerjaan lowonganPekerjaan, IPerusahaan perusahaan)
+        private readonly ILamaran _lamaran;
+        private readonly ICompanyDashboard _companyDashboard;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ApplicationContext _context;
+        public DashboardPerusahaanController(IKategoriPekerjaan kategoriPekerjaan,
+            ILowonganPekerjaan lowonganPekerjaan,
+            IPerusahaan perusahaan,
+            IHttpContextAccessor contextAccessor, ApplicationContext context,
+            ILamaran lamaran, ICompanyDashboard companyDashboard)
         {
             _kategoriPekerjaan = kategoriPekerjaan;
             _lowonganPekerjaan = lowonganPekerjaan;
             _perusahaan = perusahaan;
-        }
-        public IActionResult Index()
-        {
-            return View();
+            _httpContextAccessor = contextAccessor;
+            _context = context;
+            _lamaran = lamaran;
+            _companyDashboard = companyDashboard;
         }
 
-        //==== UNTUK KATEGORI ====\\
-        public IActionResult KategoriPekerjaan()
+        ///=============== UNTUK COMPANY PROFILE ==================\\\
+        //public IActionResult CompanyProfile(int id)
+        //{
+        //    var data = _perusahaan.GetCompanyById(id);
+        //    return View(data);
+        //}
+        //public IActionResult CompanyProfile()
+        //{
+        //    var data = _perusahaan.GetListCompany();
+        //    return View(data);
+        //}
+
+        public IActionResult CompanyProfile()
         {
-            var data = _kategoriPekerjaan.GetListKategoriPekerjaan();
+            var data = _perusahaan.GetCurrentCompany();
             return View(data);
-
         }
 
-        public IActionResult KategoriPekerjaanAddUpdate(int id)
+        ///=============== UNTUK COMPANY PROFILE SETTING ==================\\\
+        ///=============== UNTUK COMPANY PROFILE SETTING ==================\\
+        [HttpGet] // Tambahkan ini
+        public IActionResult CompanyProfileSetting()
         {
-            var data = _kategoriPekerjaan.GetListKategoriPekerjaanById(id);
-            return View(data);
+            var currentCompany = _perusahaan.GetCurrentCompany();
+
+            // Convert ke RegisterPerusahaanDTO untuk form edit
+            var dto = new RegisterPerusahaanDTO
+            {
+                PerusahaanId = currentCompany.PerusahaanId,
+                NamaPerusahaan = currentCompany.NamaPerusahaan,
+                Email = currentCompany.Email,
+                Telepon = currentCompany.Telepon,
+                Alamat = currentCompany.Alamat,
+                Kota = currentCompany.Kota,
+                Provinsi = currentCompany.Provinsi,
+                BidangUsaha = currentCompany.BidangUsaha,
+                TanggalBerdiri = currentCompany.TanggalBerdiri
+            };
+
+            return View(dto);
         }
 
         [HttpPost]
-        public IActionResult KategoriPekerjaanAddUpdate(KategoriPekerjaanDTO kategoriPekerjaanDTO)
+        public IActionResult CompanyProfileSetting(RegisterPerusahaanDTO dto)
         {
-            if (kategoriPekerjaanDTO.Id == 0)
-            {
-                var data = _kategoriPekerjaan.AddKategoriPekerjaaan(kategoriPekerjaanDTO);
-                if (data)
-                {
-                    return RedirectToAction("KategoriPekerjaan");
-                }
-            }
-            else
-            {
-                var data = _kategoriPekerjaan.UpdateKategoriPekerjaan(kategoriPekerjaanDTO);
-                if (data)
-                {
-                    return RedirectToAction("KategoriPekerjaan");
-                }
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult DeleteKategoriPekerjaan(int id)
-        {
-            var data = _kategoriPekerjaan.DeleteKategoriPekerjaan(id);
+            var data = _perusahaan.UpdateCompany(dto);
             if (data)
             {
-                return RedirectToAction("KategoriPekerjaan");
+                return RedirectToAction(nameof(CompanyProfile)); // Redirect ke profile, bukan setting
             }
-            return BadRequest("Gagal menghapus supplier.");
+            return View(dto);
         }
 
-
-
-        //==== UNTUK LOWONGAN PEKERJAAN ====\\
-        public IActionResult LowonganPekerjaan()
+        ///=============== UNTUK DASHBOARD ==================\\\
+        public IActionResult Index()
         {
-            var data = _lowonganPekerjaan.GetListLowonganPekerjaan();
+            var data = _companyDashboard.GetDashboardData();
             return View(data);
         }
+
+        ///=============== UNTUK LOWONGAN PEKERJAAN ==============\\\
+        public IActionResult LowonganPekerjaan(int? page, string searchTerm = "")
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 5;
+
+            var data = _lowonganPekerjaan.GetListLowonganPekerjaan(pageNumber, pageSize, searchTerm);
+
+            ViewBag.SearchTerm = searchTerm;
+            return View(data);
+        }
+
+
 
         public IActionResult LowonganPekerjaanAddUpdate(int id)
         {
-            ViewBag.Perusahaan = _perusahaan.Perusahaan();
             ViewBag.Kategori = _kategoriPekerjaan.KategoriPekerjaan();
             var data = _lowonganPekerjaan.GetLowonganPekerjaanById(id);
             return View(data);
         }
 
+
         [HttpPost]
         public IActionResult LowonganPekerjaanAddUpdate(LowonganPekerjaan lowonganPekerjaan)
         {
+
             var lowonganDTO = new LowonganPekerjaanAddUpdateDTO
             {
                 Id = lowonganPekerjaan.Id,
                 Judul = lowonganPekerjaan.Judul,
                 Posisi = lowonganPekerjaan.Posisi,
+                Alamat = lowonganPekerjaan.Alamat,
                 Deskripsi = lowonganPekerjaan.Deskripsi,
                 TanggalDibuat = lowonganPekerjaan.TanggalDibuat,
                 status = lowonganPekerjaan.status,
                 KategoriId = lowonganPekerjaan.KategoriId,
-                PerusahaanId = lowonganPekerjaan.PerusahaanId,
             };
 
             if (lowonganPekerjaan.Id == 0)
@@ -130,5 +158,80 @@ namespace PROJECT_CAREERCIN.Controllers
             return BadRequest("Gagal menghapus supplier.");
         }
 
+
+
+        //============= UNTUK LAMARAN PEKERJAAN ==============\\
+
+        public IActionResult PelamarKerja(int? page, string searchTerm = "")
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 5;
+
+            var data = _lamaran.GetListLamaran(pageNumber, pageSize, searchTerm);
+
+            ViewBag.SearchTerm = searchTerm; // biar value input search tetap ada
+            return View(data);
+        }
+
+        //HttpGet khusus buat nampilin form edit
+        [HttpGet]
+        public IActionResult UpdateStatusPelamar(int id)
+        {
+            var lamaran = _lamaran.GetLamaranById(id);
+            if (lamaran == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new LamaranAddUpdateDTO
+            {
+                Id = lamaran.Id,
+                Nama = lamaran.Nama,
+                Email = lamaran.Email,
+                NoHP = lamaran.NoHP,
+                Pendidikan = lamaran.Pendidikan,
+                Status = lamaran.Status
+            };
+
+            return View(dto);
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateStatusPelamar(LamaranAddUpdateDTO dto)
+        {
+            var data = _lamaran.UpdateLamaran(dto);
+            if (data)
+            {
+                return RedirectToAction(nameof(PelamarKerja));
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteLamaran(int id)
+        {
+            var data = _lamaran.DeleteLamaran(id);
+            if (data)
+            {
+                return RedirectToAction("LowonganPekerjaan");
+            }
+            return BadRequest("Gagal menghapus supplier.");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadCv(int lamaranId)
+        {
+            var fileBytes = await _lamaran.DownloadCvAsync(lamaranId);
+            var lamaran = _context.Lamarans.FirstOrDefault(x => x.Id == lamaranId);
+
+            if (lamaran == null || string.IsNullOrEmpty(lamaran.CV))
+                return NotFound("CV tidak ditemukan");
+
+            var fileName = lamaran.CV.EndsWith(".pdf") ? lamaran.CV : $"{lamaran.CV}.pdf";
+
+            return File(fileBytes, "application/pdf", fileName);
+        }
     }
 }

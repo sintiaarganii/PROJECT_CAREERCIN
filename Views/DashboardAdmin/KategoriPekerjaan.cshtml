@@ -2,14 +2,14 @@
 @model List<KategoriPekerjaanDTO>
 @{
 
-    Layout = "_LayoutPerusahaan"; // Pakai template
+    Layout = "_LayoutAdmin"; // Pakai template
 }
 
 
 <div class="page active" id="kategori">
     <div class="table-container">
         <h3><i class="fas fa-file-alt"></i> Kategori Pekerjaan</h3>
-        <a href="/DashboardPerusahaan/KategoriPekerjaanAddUpdate">
+        <a href="/DashboardAdmin/KategoriPekerjaanAddUpdate">
             <button class="action-btn"><i class="fas fa-plus"></i> Tambah Kategori</button>
         </a>
         <table>
@@ -30,8 +30,8 @@
                         <td class="text-truncate">@data.NamaKategori</td>
                         <td class="text-truncate">@data.Deskripsi</td>
                         <td>
-                            <a href="@Url.Action("KategoriPekerjaanAddUpdate", "DashboardPerusahaan", new { id = data.Id })" class="btn btn-sm btn-update"><i class="bi bi-pencil"></i> Update</a>
-                            <form method="post" action="@Url.Action("DeleteKategoriPekerjaan", "DashboardPerusahaan")" style="display:inline">
+                            <a href="@Url.Action("KategoriPekerjaanAddUpdate", "DashboardAdmin", new { id = data.Id })" class="btn btn-sm btn-update"><i class="bi bi-pencil"></i> Update</a>
+                            <form method="post" action="@Url.Action("DeleteKategoriPekerjaan", "DashboardAdmin")" style="display:inline">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="id" value="@data.Id" />
                                 <button type="submit" class="btn btn-sm btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus Kategori ini?');"><i class="bi bi-trash"></i> Delete</button>

@@ -65,6 +65,9 @@ namespace PROJECT_CAREERCIN.Migrations
                     b.Property<int>("GajiSaatIni")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("LowonganId")
                         .HasColumnType("int");
 
@@ -72,8 +75,9 @@ namespace PROJECT_CAREERCIN.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("NoHP")
-                        .HasColumnType("int");
+                    b.Property<string>("NoHP")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Pendidikan")
                         .HasColumnType("int");
@@ -139,9 +143,16 @@ namespace PROJECT_CAREERCIN.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Alamat")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Deskripsi")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Judul")
                         .IsRequired()
@@ -293,6 +304,10 @@ namespace PROJECT_CAREERCIN.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Posisi")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("ProfileImage")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -317,9 +332,10 @@ namespace PROJECT_CAREERCIN.Migrations
                         {
                             Id = 1,
                             CoverImage = "",
-                            CreatedAt = new DateTime(2025, 8, 10, 22, 33, 7, 843, DateTimeKind.Local).AddTicks(6689),
+                            CreatedAt = new DateTime(2025, 8, 23, 0, 28, 34, 53, DateTimeKind.Local).AddTicks(7969),
                             Email = "admin@example.com",
-                            PasswordHash = "$2a$11$9FwpxYg.DvKYvWKICvEpiehua/K2o5fdi9YRm76MY1GG4LGXL9baC",
+                            PasswordHash = "$2a$11$/P3wqqpcxV6lTCw7CICaleE000NlIR1d1FL8E20gKq/dbt.wLgHyC",
+                            Posisi = "Administrator",
                             ProfileImage = "",
                             Role = "Admin",
                             Status = 0,

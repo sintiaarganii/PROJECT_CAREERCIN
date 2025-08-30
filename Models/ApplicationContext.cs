@@ -33,6 +33,7 @@ namespace PROJECT_CAREERCIN.Models
                     CoverImage = "",
                     ProfileImage = "",
                     Role = "Admin",
+                    Posisi = "Administrator",
                     CreatedAt = DateTime.Now,
                     Status = GeneralStatus.GeneralStatusData.Active
                 }

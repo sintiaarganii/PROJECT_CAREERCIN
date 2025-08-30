@@ -23,6 +23,10 @@ namespace PROJECT_CAREERCIN.Controllers
             _logger = logger;
         }
 
+        public IActionResult LoginAdmin()
+        {
+            return View();
+        }
         public IActionResult RegisterUser()
         {
             return View();
@@ -79,8 +83,6 @@ namespace PROJECT_CAREERCIN.Controllers
                 return View(model);
             }
         }
-
-
 
 
         public IActionResult LoginUser()
@@ -219,9 +221,9 @@ namespace PROJECT_CAREERCIN.Controllers
                     HttpOnly = true,
                     Secure = true,
                     SameSite = SameSiteMode.Strict,
-                    Expires = DateTime.Now.AddSeconds(10)
+                    //Expires = DateTime.Now.AddSeconds(10)
                     //Expires = DateTime.Now.AddMinutes(5) // Sesuaikan dengan expiry token JWT
-                    //Expires = DateTime.Now.AddHours(1) // Sesuaikan dengan expiry token
+                    Expires = DateTime.Now.AddHours(1) // Sesuaikan dengan expiry token
                 });
 
                 Response.Cookies.Append("user_role", user.Role, new CookieOptions

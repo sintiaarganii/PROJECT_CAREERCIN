@@ -230,43 +230,37 @@
 
         /* Responsive Design */
         @@media (max-width: 768px) {
-            .sidebar
+            .sidebar {
+                transform: translateX(-270px);
+            }
 
-        {
-            transform: translateX(-270px);
-        }
+                .sidebar.active {
+                    transform: translateX(0);
+                }
 
-        .sidebar.active {
-            transform: translateX(0);
-        }
+            .header, .main-content {
+                margin-left: 0;
+            }
 
-        .header, .main-content {
-            margin-left: 0;
-        }
-
-        .toggle-btn {
-            display: block;
-            font-size: 24px;
-            cursor: pointer;
-            color: #2c3e50;
-        }
-
+            .toggle-btn {
+                display: block;
+                font-size: 24px;
+                cursor: pointer;
+                color: #2c3e50;
+            }
         }
 
         /* Animasi Fade In */
         @@keyframes fadeIn {
-            from
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-        {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .main-content, .card, .table-container, .chart-container {
@@ -282,6 +276,7 @@
             <ul>
                 <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="#"><i class="fas fa-suitcase"></i> Lowongan</a></li>
+                <li><a href="/DashboardAdmin/KategoriPekerjaan" class="nav-link" data-page="kategori"><i class="fas fa-file-alt"></i> Kategori</a></li>
                 <li><a href="#"><i class="fas fa-users"></i> Pelamar</a></li>
                 <li><a href="#"><i class="fas fa-file-alt"></i> Laporan</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Pengaturan</a></li>

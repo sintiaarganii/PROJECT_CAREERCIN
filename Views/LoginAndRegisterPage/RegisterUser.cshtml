@@ -12,101 +12,433 @@
     <meta charset="UTF-8">
     <title>Register Akun</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #1976D2;
+            --primary-dark: #155a9c;
+            --secondary: #f8f9fa;
+            --text: #2c3e50;
+            --text-light: #6c757d;
+            --success: #28a745;
+            --border: #dee2e6;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, #1976D2 0%, #155a9c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #f5f6fa;
-            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-        }
-            
-        .register-box {
-            background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-width: 450px;
-            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
         }
 
-            .register-box h2 {
-                text-align: center;
-                margin-bottom: 25px;
-                color: #2c3e50;
-            }
+        .register-container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .illustration-section {
+            flex: 1;
+            background: var(--gradient);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .illustration-content {
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .illustration-content h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .illustration-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .illustration-image {
+            max-width: 100%;
+            margin-top: 30px;
+        }
+
+        .register-box {
+            flex: 1;
+            background-color: #fff;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(25, 118, 210, 0.08);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .decoration-1 {
+            top: -100px;
+            right: -100px;
+        }
+
+        .decoration-2 {
+            bottom: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+        }
+
+        .register-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .register-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text);
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .register-box h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
 
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 14px;
         }
 
         input[type="text"],
         input[type="email"],
         input[type="password"] {
             width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: var(--secondary);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            cursor: pointer;
+            color: var(--text-light);
         }
 
         button {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: none;
-            background-color: #1976D2;
+            background: var(--gradient);
             color: white;
-            font-weight: bold;
-            border-radius: 6px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s ease-in-out;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-size: 16px;
         }
 
-            button:hover {
-                background-color: #155a9c;
-            }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+        }
 
         .text-center {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
+            color: var(--text-light);
+        }
+
+        .text-center a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
         }
 
         .text-danger {
-            color: red;
-            font-size: 0.9em;
+            color: #dc3545;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Animations */
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @@keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive design */
+        @@media (max-width: 900px) {
+            .register-container {
+                flex-direction: column;
+                border-radius: 12px;
+                max-width: 450px;
+            }
+            
+            .illustration-section {
+                display: none;
+            }
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 5px;
+            border-radius: 3px;
+            background: #eee;
+            overflow: hidden;
+        }
+
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .strength-weak { background: #dc3545; width: 33%; }
+        .strength-medium { background: #ffc107; width: 66%; }
+        .strength-strong { background: #28a745; width: 100%; }
+
+        .password-strength-text {
+            font-size: 0.8rem;
+            margin-top: 3px;
+            text-align: right;
+        }
+
+        .form-icon {
+            position: absolute;
+            left: 15px;
+            top: 42px;
+            color: var(--text-light);
+        }
+
+        .input-with-icon {
+            padding-left: 40px !important;
         }
     </style>
 </head>
 <body>
 
-    <div class="register-box">
-        <h2>Daftar Akun Baru</h2>
-        <form asp-controller="LoginAndRegisterPage" asp-action="RegisterUser" method="post">
-            <label for="Username">Username</label>
-            <input type="text" asp-for="Username" id="Username" />
-            <span asp-validation-for="Username" class="text-danger"></span>
-
-            <label for="Email">Email</label>
-            <input type="email" asp-for="Email" id="Email" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-
-            <label for="Password">Password</label>
-            <input type="password" asp-for="Password" id="Password" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-
-            <button type="submit">Daftar</button>
-
-            <div class="text-center">
-                Sudah punya akun? <a href="/LoginAndRegisterPage/LoginUser">Login di sini</a>
+    <div class="register-container">
+        <div class="illustration-section">
+            <div class="illustration-content">
+                <h2>Bergabung Dengan Kami</h2>
+                <p>Daftarkan akun Anda sekarang dan temukan peluang karir terbaik untuk masa depan Anda</p>
+                <div class="illustration-image">
+                    <svg width="250" height="200" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M250,100 C350,50 450,100 450,200 C450,300 350,350 250,300 C150,350 50,300 50,200 C50,100 150,50 250,100 Z" fill="rgba(255,255,255,0.2)"/>
+                        <circle cx="250" cy="180" r="80" fill="rgba(255,255,255,0.3)"/>
+                        <path d="M200,220 L250,250 L300,200" stroke="white" stroke-width="10" fill="none"/>
+                        <circle cx="220" cy="150" r="15" fill="white"/>
+                        <circle cx="280" cy="150" r="15" fill="white"/>
+                    </svg>
+                </div>
             </div>
-        </form>
+        </div>
+        
+        <div class="register-box">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2"></div>
+            
+            <div class="register-content">
+                <h2>Daftar Akun Baru</h2>
+                
+                <form asp-controller="LoginAndRegisterPage" asp-action="RegisterUser" method="post" id="registrationForm">
+                    <div class="input-group">
+                        <label for="Username">Username</label>
+                        <i class="fas fa-user form-icon"></i>
+                        <input type="text" asp-for="Username" id="Username" class="input-with-icon" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="Email">Email</label>
+                        <i class="fas fa-envelope form-icon"></i>
+                        <input type="email" asp-for="Email" id="Email" class="input-with-icon" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="Password">Password</label>
+                        <i class="fas fa-lock form-icon"></i>
+                        <input type="password" asp-for="Password" id="Password" class="input-with-icon" />
+                        <span class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="password-strength">
+                            <div class="strength-meter" id="passwordStrengthMeter"></div>
+                        </div>
+                        <div class="password-strength-text" id="passwordStrengthText"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="Posisi">Posisi</label>
+                        <i class="fas fa-briefcase form-icon"></i>
+                        <input type="text" asp-for="Posisi" id="Posisi" class="input-with-icon" />
+                        <span asp-validation-for="Posisi" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" id="submitButton">Daftar <i class="fas fa-user-plus"></i></button>
+
+                    <div class="text-center">
+                        Sudah punya akun? <a href="/LoginAndRegisterPage/LoginUser">Login di sini</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Function untuk toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('Password');
+            const toggleIcon = document.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+        
+        // Function untuk mengecek kekuatan password
+        document.getElementById('Password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthMeter = document.getElementById('passwordStrengthMeter');
+            const strengthText = document.getElementById('passwordStrengthText');
+            
+            // Reset
+            strengthMeter.className = 'strength-meter';
+            strengthText.textContent = '';
+            
+            if (password.length === 0) {
+                return;
+            }
+            
+            // Check password strength
+            let strength = 0;
+            
+            // Jika password memiliki panjang minimal 8 karakter
+            if (password.length >= 8) strength += 1;
+            
+            // Jika password mengandung huruf kecil dan besar
+            if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength += 1;
+            
+            // Jika password mengandung angka
+            if (password.match(/([0-9])/)) strength += 1;
+            
+            // Jika password mengandung karakter khusus
+            if (password.match(/([!,@@,#,$,%,^,&,*,?,_,~])/)) strength += 1;
+            
+            // Update UI
+            switch(strength) {
+                case 0:
+                case 1:
+                    strengthMeter.classList.add('strength-weak');
+                    strengthText.textContent = 'Lemah';
+                    strengthText.style.color = '#dc3545';
+                    break;
+                case 2:
+                    strengthMeter.classList.add('strength-medium');
+                    strengthText.textContent = 'Sedang';
+                    strengthText.style.color = '#ffc107';
+                    break;
+                case 3:
+                case 4:
+                    strengthMeter.classList.add('strength-strong');
+                    strengthText.textContent = 'Kuat';
+                    strengthText.style.color = '#28a745';
+                    break;
+            }
+        });
+        
+        // Animasi pada tombol submit
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            const submitButton = document.getElementById('submitButton');
+            submitButton.innerHTML = 'Mendaftarkan... <i class="fas fa-spinner fa-spin"></i>';
+            submitButton.disabled = true;
+            
+            // Simulasi proses pendaftaran
+            setTimeout(function() {
+                submitButton.innerHTML = 'Pendaftaran Berhasil! <i class="fas fa-check"></i>';
+                submitButton.style.background = 'var(--success)';
+            }, 1500);
+        });
+    </script>
 
 </body>
 </html>
