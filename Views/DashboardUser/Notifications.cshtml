@@ -15,13 +15,13 @@
         flex-shrink: 0;
     }
 
-    .company-logo img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        display: block;
-    }
+        .company-logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
 </style>
 
 <section id="notifications-section">
@@ -83,25 +83,25 @@
                             method: form.method,
                             body: new FormData(form)
                         })
-                        .then(response => {
-                            if (response.ok) {
-                                Swal.fire({
-                                    title: 'Berhasil!',
-                                    text: 'Data berhasil dihapus.',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(() => {
-                                    // Reload page atau hapus element dari DOM
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus.', 'error');
-                            }
-                        })
-                        .catch(() => {
-                            Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
-                        });
+                            .then(response => {
+                                if (response.ok) {
+                                    Swal.fire({
+                                        title: 'Berhasil!',
+                                        text: 'Data berhasil dihapus.',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(() => {
+                                        // Reload page atau hapus element dari DOM
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus.', 'error');
+                                }
+                            })
+                            .catch(() => {
+                                Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
+                            });
                     }
                 });
             });

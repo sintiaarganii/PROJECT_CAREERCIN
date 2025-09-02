@@ -248,6 +248,12 @@ namespace PROJECT_CAREERCIN.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("OtpCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("OtpExpiredAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -300,6 +306,12 @@ namespace PROJECT_CAREERCIN.Migrations
                     b.Property<DateTime?>("LastUpdatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("OtpCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("OtpExpiredAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -332,9 +344,9 @@ namespace PROJECT_CAREERCIN.Migrations
                         {
                             Id = 1,
                             CoverImage = "",
-                            CreatedAt = new DateTime(2025, 8, 23, 0, 28, 34, 53, DateTimeKind.Local).AddTicks(7969),
+                            CreatedAt = new DateTime(2025, 9, 2, 14, 28, 26, 503, DateTimeKind.Local).AddTicks(1686),
                             Email = "admin@example.com",
-                            PasswordHash = "$2a$11$/P3wqqpcxV6lTCw7CICaleE000NlIR1d1FL8E20gKq/dbt.wLgHyC",
+                            PasswordHash = "$2a$11$Nkdc4.PbkKIxGrTWsxUu/O18vqbXprUIGxb3/N6caRd5PFvMUoIpC",
                             Posisi = "Administrator",
                             ProfileImage = "",
                             Role = "Admin",

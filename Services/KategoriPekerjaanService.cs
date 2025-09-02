@@ -3,29 +3,41 @@ using PROJECT_CAREERCIN.Models.DB;
 using PROJECT_CAREERCIN.Models.DTO;
 using PROJECT_CAREERCIN.Models;
 using PROJECT_CAREERCIN.Interfaces;
+using X.PagedList.Extensions;
+using X.PagedList;
 
 namespace PROJECT_CAREERCIN.Services
 {
     public class KategoriPekerjaanService : IKategoriPekerjaan
     {
         private readonly ApplicationContext _context;
-
         public KategoriPekerjaanService(ApplicationContext context)
         {
             _context = context;
         }
 
-        public List<KategoriPekerjaanDTO> GetListKategoriPekerjaan()
+        // Metode baru dengan pagination dan searching
+        public IPagedList<KategoriPekerjaanDTO> GetListKategoriPekerjaan(int page, int pageSize, string searchTerm = "")
         {
-            var data = _context.KategoriPekerjaans.Select(x => new KategoriPekerjaanDTO
+            var query = _context.KategoriPekerjaans
+                .Select(x => new KategoriPekerjaanDTO
+                {
+                    Id = x.Id,
+                    NamaKategori = x.NamaKategori,
+                    Deskripsi = x.Deskripsi,
+                });
+
+            // Tambahkan pencarian
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                Id = x.Id,
-                NamaKategori = x.NamaKategori,
-                Deskripsi = x.Deskripsi,
+                query = query.Where(x =>
+                    x.NamaKategori.Contains(searchTerm) ||
+                    x.Deskripsi.Contains(searchTerm));
+            }
 
-            }).ToList();
-
-            return data;
+            // Return dengan pagination
+            return query.OrderBy(x => x.NamaKategori)
+                        .ToPagedList(page, pageSize);
         }
 
         public KategoriPekerjaan GetListKategoriPekerjaanById(int id)
@@ -94,6 +106,5 @@ namespace PROJECT_CAREERCIN.Services
 
             return datas;
         }
-
     }
 }

@@ -69,13 +69,10 @@
         }
 
         @@keyframes fadeInUp {
-            to
-
-        {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .job-header {
@@ -205,42 +202,36 @@
 
         /* Responsive */
         @@media (max-width: 768px) {
-            .job-header
+            .job-header {
+                flex-direction: column;
+            }
 
-        {
-            flex-direction: column;
-        }
+            .job-title {
+                font-size: 24px;
+            }
 
-        .job-title {
-            font-size: 24px;
-        }
+            .action-buttons {
+                flex-direction: column;
+            }
 
-        .action-buttons {
-            flex-direction: column;
-        }
-
-        .btn {
-            width: 100%;
-        }
-
+            .btn {
+                width: 100%;
+            }
         }
 
         /* Animasi untuk tombol lamar */
         @@keyframes pulse {
-            0%
+            0% {
+                transform: scale(1);
+            }
 
-        {
-            transform: scale(1);
-        }
+            50% {
+                transform: scale(1.05);
+            }
 
-        50% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-
+            100% {
+                transform: scale(1);
+            }
         }
 
         .btn-pulse {
@@ -330,7 +321,7 @@
 
     <script>
         // Animasi untuk tombol lamar
-        document.getElementById('applyBtn').addEventListener('click', function() {
+        document.getElementById('applyBtn').addEventListener('click', function () {
             this.innerHTML = 'Mengirim Lamaran...';
             this.style.backgroundColor = '#004182';
 
@@ -346,7 +337,7 @@
         });
 
         // Tombol kembali
-        document.getElementById('backBtn').addEventListener('click', function() {
+        document.getElementById('backBtn').addEventListener('click', function () {
             // Animasi sebelum kembali
             this.innerHTML = 'Kembali...';
             setTimeout(() => {

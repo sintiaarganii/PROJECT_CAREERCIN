@@ -10,496 +10,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Login Pelamar - CareerCin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --primary: #4e73df;
-            --primary-dark: #2e59d9;
-            --secondary: #1cc88a;
-            --text: #4a4a4a;
-            --light-bg: #f8f9fc;
-            --error: #e74a3b;
-            --success: #1cc88a;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --light: #ffffff;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --applicant-accent: #7c3aed; /* Warna ungu yang cocok untuk pelamar */
         }
-        
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
+            min-height: 100vh;
+            background-color: var(--light);
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
-            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .applicant-login-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             overflow: hidden;
         }
-        
-        /* Animated Background Elements */
-        .bg-bubbles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .bg-bubbles li {
-            position: absolute;
-            list-style: none;
-            display: block;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.15);
-            bottom: -160px;
-            border-radius: 50%;
-            animation: square 25s infinite;
-            transition-timing-function: linear;
-        }
-        
-        .bg-bubbles li:nth-child(1) {
-            left: 10%;
-            animation-delay: 0s;
-            width: 80px;
-            height: 80px;
-        }
-        
-        .bg-bubbles li:nth-child(2) {
-            left: 20%;
-            animation-delay: 2s;
-            animation-duration: 17s;
-            width: 60px;
-            height: 60px;
-        }
-        
-        .bg-bubbles li:nth-child(3) {
-            left: 25%;
-            animation-delay: 4s;
-            width: 70px;
-            height: 70px;
-        }
-        
-        .bg-bubbles li:nth-child(4) {
-            left: 40%;
-            animation-delay: 0s;
-            animation-duration: 22s;
-            width: 90px;
-            height: 90px;
-        }
-        
-        .bg-bubbles li:nth-child(5) {
-            left: 70%;
-            width: 50px;
-            height: 50px;
-        }
-        
-        .bg-bubbles li:nth-child(6) {
-            left: 80%;
-            animation-delay: 3s;
-            width: 60px;
-            height: 60px;
-        }
-        
-        .bg-bubbles li:nth-child(7) {
-            left: 32%;
-            animation-delay: 7s;
-            width: 75px;
-            height: 75px;
-        }
-        
-        .bg-bubbles li:nth-child(8) {
-            left: 55%;
-            animation-delay: 15s;
-            animation-duration: 40s;
-            width: 100px;
-            height: 100px;
-        }
-        
-        .bg-bubbles li:nth-child(9) {
-            left: 25%;
-            animation-delay: 2s;
-            animation-duration: 40s;
-            width: 45px;
-            height: 45px;
-        }
-        
-        .bg-bubbles li:nth-child(10) {
-            left: 90%;
-            animation-delay: 11s;
-            width: 65px;
-            height: 65px;
-        }
-        
-        @@keyframes square {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-                border-radius: 50%;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-                border-radius: 50%;
-            }
-        }
-        
-        .login-container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            position: relative;
-            z-index: 2;
-            animation: fadeIn 0.8s ease-out, slideUp 0.8s ease-out;
-            overflow: hidden;
-        }
-        
-        @@keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @@keyframes slideUp {
-            from { transform: translateY(40px); }
-            to { transform: translateY(0); }
-        }
-        
-        .login-header {
+
+        .applicant-header {
+            background: var(--applicant-accent);
+            color: white;
+            padding: 25px 30px;
             text-align: center;
-            margin-bottom: 30px;
+            position: relative;
         }
-        
-        .login-header h2 {
-            font-size: 28px;
+
+            .applicant-header h1 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .applicant-header h1 i {
+                    margin-right: 12px;
+                    font-size: 1.6rem;
+                }
+
+            .applicant-header p {
+                font-size: 1rem;
+                opacity: 0.9;
+            }
+
+        .applicant-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
         }
-        
-        .login-header p {
-            color: #7a7a7a;
-            font-size: 16px;
+
+        .applicant-form-container {
+            padding: 30px;
         }
-        
+
+        .applicant-notice {
+            background: #f0f9ff;
+            border-left: 4px solid #38bdf8;
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+            .applicant-notice i {
+                color: #38bdf8;
+                margin-right: 10px;
+                font-size: 1.1rem;
+            }
+
         .form-group {
             margin-bottom: 20px;
-            position: relative;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text);
-            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
         }
-        
+
         .input-with-icon {
             position: relative;
         }
-        
+
+            .input-with-icon input {
+                width: 100%;
+                padding: 14px 14px 14px 45px;
+                border: 1px solid #d1d5db;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: all 0.3s;
+            }
+
+                .input-with-icon input:focus {
+                    outline: none;
+                    border-color: var(--applicant-accent);
+                    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+                }
+
         .input-icon {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #a0a0a0;
-            font-size: 18px;
+            color: var(--gray);
         }
-        
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border-radius: 10px;
-            border: 1px solid #e1e1e1;
-            font-size: 15px;
-            transition: all 0.3s;
-            background-color: var(--light-bg);
-        }
-        
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
-        }
-        
-        .show-password-container {
-            position: relative;
-        }
-        
+
         .show-password-icon {
             position: absolute;
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
+            color: var(--gray);
             cursor: pointer;
-            color: #a0a0a0;
-            font-size: 18px;
-            transition: color 0.3s;
-            z-index: 3;
         }
-        
-        .show-password-icon:hover {
-            color: var(--primary);
-        }
-        
+
         .error-message {
-            color: var(--error);
-            font-size: 0.85em;
+            color: #ef4444;
+            font-size: 0.85rem;
             margin-top: 5px;
             display: block;
-            animation: shake 0.5s ease-in-out;
         }
-        
-        @@keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
+
         .btn-login {
             width: 100%;
-            padding: 15px;
-            background-color: var(--primary);
+            padding: 14px;
+            background-color: var(--applicant-accent);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            transition: background-color 0.3s;
+            margin-top: 10px;
         }
-        
-        .btn-login:after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        
-        .btn-login:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-login:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-        
-        @@keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
+
+            .btn-login:hover {
+                background-color: #6d28d9;
             }
-            100% {
-                transform: scale(30, 30);
-                opacity: 0;
-            }
+
+        .applicant-features {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
         }
-        
+
+            .applicant-features h3 {
+                font-size: 1rem;
+                color: var(--dark);
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+            }
+
+                .applicant-features h3 i {
+                    margin-right: 10px;
+                    color: var(--applicant-accent);
+                }
+
+        .feature-list {
+            list-style: none;
+        }
+
+            .feature-list li {
+                display: flex;
+                align-items: center;
+                margin-bottom: 12px;
+                font-size: 0.9rem;
+                color: var(--gray);
+            }
+
+                .feature-list li i {
+                    color: var(--applicant-accent);
+                    margin-right: 10px;
+                    font-size: 0.8rem;
+                }
+
+        .secure-notice {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .secure-notice i {
+                color: #22c55e;
+                margin-right: 8px;
+            }
+
         .register-link {
             text-align: center;
             margin-top: 20px;
-            font-size: 0.95em;
+            font-size: 0.9rem;
+            color: var(--gray);
         }
-        
-        .register-link a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .register-link a:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--primary);
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s;
-        }
-        
-        .register-link a:hover {
-            color: var(--primary-dark);
-        }
-        
-        .register-link a:hover:after {
-            transform-origin: bottom left;
-            transform: scaleX(1);
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 500;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        
-        .notification.success {
-            background-color: var(--success);
-        }
-        
-        .notification.error {
-            background-color: var(--error);
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        @@media (max-width: 576px) {
-            .login-container {
-                padding: 30px 25px;
+
+            .register-link a {
+                color: var(--applicant-accent);
+                text-decoration: none;
+                font-weight: 600;
             }
-            
-            .login-header h2 {
-                font-size: 24px;
+
+                .register-link a:hover {
+                    text-decoration: underline;
+                }
+
+        .social-login {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: var(--dark);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+            .social-btn.google:hover {
+                background: #db4437;
+                color: white;
+            }
+
+            .social-btn.linkedin:hover {
+                background: #0077b5;
+                color: white;
+            }
+
+            .social-btn.facebook:hover {
+                background: #4267B2;
+                color: white;
+            }
+
+        @@media (max-width: 576px) {
+            body {
+                padding: 15px;
+                background-image: none;
+            }
+
+            .applicant-login-container {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .applicant-header {
+                padding: 20px;
+            }
+
+            .applicant-form-container {
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated background elements -->
-    <ul class="bg-bubbles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-
-    <div class="login-container">
-        <div class="login-header">
-            <h2>Login Pengguna</h2>
-            <p>Masuk untuk mengakses dashboard Anda</p>
+    <div class="applicant-login-container">
+        <div class="applicant-header">
+            <span class="applicant-badge">Pelamar</span>
+            <h1><i class="fas fa-user-graduate"></i> Portal Pelamar</h1>
+            <p>Temukan pekerjaan impian Anda</p>
         </div>
-        
-        <form asp-controller="LoginAndRegisterPage" asp-action="LoginUser" method="post">
-            <div class="form-group">
-                <label for="NamaPerusahaan">Username</label>
-                <div class="input-with-icon">
-                    <i class="input-icon fas fa-user"></i>
-                    <input type="text" asp-for="Username" id="Username" placeholder="Masukkan username" required />
-                </div>
+
+        <div class="applicant-form-container">
+            <div class="applicant-notice">
+                <i class="fas fa-info-circle"></i>
+                <div>Masuk untuk melamar pekerjaan dan kelola profil karir Anda.</div>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="show-password-container">
+            <form asp-controller="LoginAndRegisterPage" id="loginForm" asp-action="LoginUser" method="post">
+                <div class="form-group">
+                    <label for="email">Username</label>
                     <div class="input-with-icon">
-                        <i class="input-icon fas fa-lock"></i>
-                        <input type="password" asp-for="Password" id="password" placeholder="Masukkan password" required />
+                        <span class="input-icon"><i class="fas fa-user-shield"></i></span>
+                        <input type="text" asp-for="Username" id="username" name="Username" placeholder="Masukkan Username Anda" required />
                     </div>
-                    <span class="show-password-icon" onclick="togglePassword()">
-                        <i class="fas fa-eye"></i>
-                    </span>
                 </div>
-                <span class="error-message" asp-validation-for="Password"></span>
-            </div>
 
-            <button type="submit" class="btn-login">Login</button>
+                <div class="form-group">
+                    <label for="password">Kata Sandi</label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        <input type="password" asp-for="Password" id="password" name="Password" placeholder="Masukkan kata sandi" required />
+                        <span class="error-message" asp-validation-for="Password"></span>
+                        <span class="show-password-icon" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login">Masuk Ke Akun Pelamar</button>
+            </form>
+
+            <div class="social-login">
+                <a href="#" class="social-btn google"><i class="fab fa-google"></i></a>
+                <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
 
             <div class="register-link">
-                Belum punya akun? <a href="/LoginAndRegisterPage/RegisterUser">Daftar di sini</a>
+                Belum memiliki akun? <a href="/LoginAndRegisterPage/RegisterUser">Daftar sebagai pelamar</a>
             </div>
-        </form>
+            <div class="register-link">
+                <a href="/LoginAndRegisterPage/ForgotPasswordForUser">Lupa password?</a>
+            </div>
+        </div>
     </div>
-
-    <div id="notification" class="notification"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // Fungsi toggle password
         function togglePassword() {
             const passwordInput = document.getElementById('password');
-            const icon = document.querySelector('.show-password-icon i');
-            
+            const eyeIcon = document.querySelector('.show-password-icon i');
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+                eyeIcon.className = 'fas fa-eye-slash';
             } else {
                 passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                eyeIcon.className = 'fas fa-eye';
             }
-        }
-
-        function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            const errorMessage = '@TempData["ErrorMessage"]';
-            if (errorMessage) {
-                showNotification(errorMessage, 'error');
-            }
+            const form = document.getElementById('loginForm');
 
-            const successMessage = '@TempData["SuccessMessage"]';
-            if (successMessage) {
-                showNotification(successMessage, 'success');
-            }
-            
-            // Add input animation effects
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.parentElement.style.transform = 'translateY(-3px)';
-                    this.parentElement.parentElement.style.transition = 'transform 0.3s';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.parentElement.style.transform = 'translateY(0)';
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Tampilkan konfirmasi
+                Swal.fire({
+                    title: 'Login?',
+                    text: "Apakah Anda yakin ingin login?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0a66c2',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, login',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit form
+                        form.submit();
+                    }
                 });
             });
-        });
+
+            // Tampilkan popup success jika ada pesan dari controller
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <text>
+                        Swal.fire({
+                            title: 'Berhasil!',
+                        text: '@TempData["SuccessMessage"]',
+                        icon: 'success',
+                        confirmButtonColor: '#0a66c2'
+                                         });
+                </text>
+            }
+
+                // Tampilkan popup error jika ada pesan dari controller
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <text>
+                        Swal.fire({
+                            title: 'Gagal!',
+                        text: '@TempData["ErrorMessage"]',
+                        icon: 'error',
+                        confirmButtonColor: '#d33'
+                                         });
+                </text>
+            }
+                 });
     </script>
 </body>
 </html>

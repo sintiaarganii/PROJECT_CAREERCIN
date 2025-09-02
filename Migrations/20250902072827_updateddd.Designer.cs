@@ -12,8 +12,8 @@ using PROJECT_CAREERCIN.Models;
 namespace PROJECT_CAREERCIN.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250821074932_initial")]
-    partial class initial
+    [Migration("20250902072827_updateddd")]
+    partial class updateddd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,8 +78,9 @@ namespace PROJECT_CAREERCIN.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("NoHP")
-                        .HasColumnType("int");
+                    b.Property<string>("NoHP")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Pendidikan")
                         .HasColumnType("int");
@@ -250,6 +251,12 @@ namespace PROJECT_CAREERCIN.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("OtpCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("OtpExpiredAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -302,6 +309,12 @@ namespace PROJECT_CAREERCIN.Migrations
                     b.Property<DateTime?>("LastUpdatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("OtpCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("OtpExpiredAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -334,9 +347,9 @@ namespace PROJECT_CAREERCIN.Migrations
                         {
                             Id = 1,
                             CoverImage = "",
-                            CreatedAt = new DateTime(2025, 8, 21, 14, 49, 31, 524, DateTimeKind.Local).AddTicks(4112),
+                            CreatedAt = new DateTime(2025, 9, 2, 14, 28, 26, 503, DateTimeKind.Local).AddTicks(1686),
                             Email = "admin@example.com",
-                            PasswordHash = "$2a$11$a8KUh9G7QVOVU1kjb/M2WOmZyXA4MQZOwz4BVQhMYioWx10g9Xpfi",
+                            PasswordHash = "$2a$11$Nkdc4.PbkKIxGrTWsxUu/O18vqbXprUIGxb3/N6caRd5PFvMUoIpC",
                             Posisi = "Administrator",
                             ProfileImage = "",
                             Role = "Admin",

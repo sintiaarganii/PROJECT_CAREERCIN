@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PROJECT_CAREERCIN.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class updateddd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,7 +61,10 @@ namespace PROJECT_CAREERCIN.Migrations
                     CreateAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     LogoPath = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OtpCode = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OtpExpiredAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,7 +94,10 @@ namespace PROJECT_CAREERCIN.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    OtpCode = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OtpExpiredAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,7 +157,8 @@ namespace PROJECT_CAREERCIN.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NoHP = table.Column<int>(type: "int", nullable: false),
+                    NoHP = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Pendidikan = table.Column<int>(type: "int", nullable: false),
                     GajiSaatIni = table.Column<int>(type: "int", nullable: false),
                     GajiDiharapkan = table.Column<int>(type: "int", nullable: false),
@@ -241,8 +248,8 @@ namespace PROJECT_CAREERCIN.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CoverImage", "CreatedAt", "Email", "LastUpdatedAt", "PasswordHash", "Posisi", "ProfileImage", "Role", "Status", "Username" },
-                values: new object[] { 1, "", new DateTime(2025, 8, 21, 14, 49, 31, 524, DateTimeKind.Local).AddTicks(4112), "admin@example.com", null, "$2a$11$a8KUh9G7QVOVU1kjb/M2WOmZyXA4MQZOwz4BVQhMYioWx10g9Xpfi", "Administrator", "", "Admin", 0, "admin" });
+                columns: new[] { "Id", "CoverImage", "CreatedAt", "Email", "LastUpdatedAt", "OtpCode", "OtpExpiredAt", "PasswordHash", "Posisi", "ProfileImage", "Role", "Status", "Username" },
+                values: new object[] { 1, "", new DateTime(2025, 9, 2, 14, 28, 26, 503, DateTimeKind.Local).AddTicks(1686), "admin@example.com", null, null, null, "$2a$11$Nkdc4.PbkKIxGrTWsxUu/O18vqbXprUIGxb3/N6caRd5PFvMUoIpC", "Administrator", "", "Admin", 0, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lamarans_LowonganId",

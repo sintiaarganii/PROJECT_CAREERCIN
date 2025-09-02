@@ -14,5 +14,6 @@
         public string BidangUsaha { get; set; }
         public DateTime TanggalBerdiri { get; set; }
         public IFormFile? LogoPath { get; set; }
+        public GeneralStatus.GeneralStatusData Status { get; set; }
     }
 }

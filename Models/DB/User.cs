@@ -15,7 +15,9 @@ namespace PROJECT_CAREERCIN.Models.DB
         public DateTime? LastUpdatedAt { get; set; }
         public GeneralStatusData Status { get; set; }
 
-        //public ProfileUserDetails ProfileUserDetails { get; set; }
+        // OTP Fields
+        public string? OtpCode { get; set; }
+        public DateTime? OtpExpiredAt { get; set; }
         public ICollection<Lamaran> Lamarans { get; set; } = new List<Lamaran>();
         public ICollection<LowonganTersimpan> lowonganTersimpans { get; set; } = new List<LowonganTersimpan>();
         public ICollection<LamaranTersimpan> RiwayatLamaran { get; set; } = new List<LamaranTersimpan>();

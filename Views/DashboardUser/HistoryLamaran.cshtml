@@ -71,7 +71,7 @@
                         <h3 class="application-job-title">@data.Posisi</h3>
                         <p class="application-company-name">@data.Deskripsi</p>
                     </div>
-                    <span class="application-date">@data.TanggalDilamar</span>
+                    <span class="application-date">@data.TanggalDilamar.ToString("dd MMMM yyyy HH:mm")</span>
 
                     <span class="application-status status-@data.Status">@data.Status</span>
 
@@ -111,25 +111,25 @@
                             method: form.method,
                             body: new FormData(form)
                         })
-                        .then(response => {
-                            if (response.ok) {
-                                Swal.fire({
-                                    title: 'Berhasil!',
-                                    text: 'Data berhasil dihapus.',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(() => {
-                                    // Reload page atau hapus element dari DOM
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus.', 'error');
-                            }
-                        })
-                        .catch(() => {
-                            Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
-                        });
+                            .then(response => {
+                                if (response.ok) {
+                                    Swal.fire({
+                                        title: 'Berhasil!',
+                                        text: 'Data berhasil dihapus.',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(() => {
+                                        // Reload page atau hapus element dari DOM
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus.', 'error');
+                                }
+                            })
+                            .catch(() => {
+                                Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
+                            });
                     }
                 });
             });

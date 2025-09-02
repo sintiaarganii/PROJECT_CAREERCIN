@@ -18,6 +18,9 @@ namespace PROJECT_CAREERCIN.Models.DB
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
         public string LogoPath { get; set; }
+        // OTP Fields
+        public string? OtpCode { get; set; }
+        public DateTime? OtpExpiredAt { get; set; }
 
         public ICollection<LowonganPekerjaan> Lowongans { get; set; } = new List<LowonganPekerjaan>();
 

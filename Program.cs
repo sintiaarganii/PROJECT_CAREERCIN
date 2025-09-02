@@ -80,13 +80,14 @@ builder.Services.AddScoped<ILamaran, LamaranService>();
 builder.Services.AddScoped<ILowonganTersimpan, LowonganTersimpanService>();
 builder.Services.AddScoped<IHistoryLamaran, HistoryLamaranService>();
 builder.Services.AddScoped<ICompanyDashboard, CompanyDashboardServices>();
+builder.Services.AddScoped<IDashboardAdminService, DashboardAdminService>();
 builder.Services.AddScoped<JwtHelper>();
+builder.Services.AddScoped<IEmailHelper, EmailHelper>();
 builder.Services.AddScoped<IFileHelper, FileHelper>();
 builder.Services.AddScoped<IImageHelper, ImageHelper>();
 builder.Services.AddScoped<IEnkripsiPassword, EnkripsiPasswordHelper>();
 builder.Services.AddScoped<ILoginLayout, LoginLayoutService>();
 builder.Services.AddHttpContextAccessor(); // Untuk mengakses HttpContext
-builder.Services.AddScoped<ICompanyDashboard, CompanyDashboardServices>();
 
 
 // Add services to the container.
@@ -101,7 +102,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 //// Dan sebelum UseAuthorization()
 //app.UseSession();

@@ -7,246 +7,231 @@
 }
 
 <style>
-         /* Gener
-    al table conta
-    iner styling */
-     .table-container {
+    /* General table container styling */
+    .table-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow-x: auto;
+    }
 
-         max-width: 1200px;
-         margin: 20px auto;
-         padding: 20px;
-             backgrou
-    nd: #fff;
-         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Heading styling */
+        .table-container h3 {
+            color: #007bff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-         border-radius: 8px;
-         overflow-x: auto;
-     }
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+    }
 
-         /* Heading styling */
+        table thead {
+            background: #007bff;
+            color: #fff;
+        }
 
-         .table-container h3 {
-             color: #007bff;
-             margin-bottom: 20px;
-             display: flex;
-             align-items: center;
-             gap: 10px;
-         }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s ease;
+        }
 
-     /* Table styling */
-     table {
-         width: 100%;
-         border-collapse: collapse;
-         font-family: Arial, sans-serif;
-     }
+        table th {
+            font-weight: bold;
+        }
 
-         table thead {
-             background: #007bff;
-             color: #fff;
-         }
+        table tbody tr:hover {
+            background: #f1f9ff;
+            transform: scale(1.01);
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
 
-         table th, table td {
-             padding: 12px;
-             text-align: left;
-             border-bottom: 1px solid #ddd;
-             transition: background 0.3s ease;
-         }
+    /* Logo styling */
+    .logo-placeholder {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f9ff;
+        border-radius: 50%;
+    }
 
-         table th {
-             font-weight: bold;
-         }
+    /* Button styling */
+    .action-btn, .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        background: #007bff;
+        color: #fff;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+        min-width: 80px;
+        text-align: center;
+    }
 
-         table tbody tr:hover {
-             background: #f1f9ff;
-             transform: scale(1.01);
-             transition: transform 0.2s ease, background 0.3s ease;
-         }
+        .action-btn i, .btn i {
+            margin-right: 5px;
+        }
 
-     /* Logo styling */
-     .logo-placeholder {
-         width: 40px;
-         height: 40px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         background: #f1f9ff;
-         border-radius: 50%;
-     }
+        .action-btn:hover, .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-     /* Button styling */
-     .action-btn, .btn {
-         padding: 8px 16px;
-         border: none;
-         border-radius: 4px;
-         cursor: pointer;
-         text-decoration: none;
-         display: inline-block;
-         background: #007bff;
-         color: #fff;
-         transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-         min-width: 80px;
-         text-align: center;
-     }
+    /* Input group styling */
+    .input-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
 
-         .action-btn i, .btn i {
-             margin-right: 5px;
-         }
+    .form-control {
+        padding: 10px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        flex-grow: 1;
+        transition: border-color 0.3s ease;
+    }
 
-         .action-btn:hover, .btn:hover {
-             background: #0056b3;
-             transform: translateY(-2px);
-             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-         }
+        .form-control:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
 
-     /* Input group styling */
-     .input-group {
-         display: flex;
-         gap: 10px;
-         margin-bottom: 20px;
-     }
+    /* Pagination styling */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
 
-     .form-control {
-         padding: 10px;
-         border: 1px solid #007bff;
-         border-radius: 4px;
-         flex-grow: 1;
-         transition: border-color 0.3s ease;
-     }
+        .pagination a, .pagination span {
+            padding: 8px 14px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            color: #007bff;
+            text-decoration: none;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-size: 14px;
+        }
 
-         .form-control:focus {
-             outline: none;
-             border-color: #0056b3;
-             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-         }
+            .pagination a:hover {
+                background: #007bff;
+                color: #fff;
+            }
 
-     /* Pagination styling */
-     .pagination {
-         display: flex;
-         justify-content: center;
-         gap: 8px;
-         margin-top: 20px;
-     }
+        .pagination .current {
+            background: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+            cursor: default;
+        }
 
-         .pagination a, .pagination span {
-             padding: 8px 14px;
-             border: 1px solid #007bff;
-             border-radius: 4px;
-             color: #007bff;
-             text-decoration: none;
-             transition: background 0.3s ease, color 0.3s ease;
-             font-size: 14px;
-         }
+        .pagination .disabled, .pagination .ellipsis {
+            display: none;
+        }
 
-             .pagination a:hover {
-                 background: #007bff;
-                 color: #fff;
-             }
+    /* Responsive design */
+    @@media (max-width: 768px) {
+        .table-container {
+            padding: 10px;
+        }
 
-         .pagination .current {
-             background: #007bff;
-             color: #fff;
-             border: 1px solid #007bff;
-             cursor: default;
-         }
+        table {
+            display: block;
+            overflow-x: auto;
+        }
 
-         .pagination .disabled, .pagination .ellipsis {
-             display: none;
-         }
+            table thead {
+                display: none;
+            }
 
-     /* Responsive design */
-     @@media (max-width: 768px) {
-         .table-container
+            table tbody tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 10px;
+                background: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-     {
-         padding: 10px;
-     }
+            table tbody td {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px;
+                border-bottom: none;
+            }
 
-     table {
-         display: block;
-         overflow-x: auto;
-     }
+                table tbody td::before {
+                    content: attr(data-label);
+                    font-weight: bold;
+                    color: #007bff;
+                    flex: 1;
+                }
 
-         table thead {
-             display: none;
-         }
+                table tbody td:not(:last-child) {
+                    border-bottom: 1px solid #eee;
+                }
 
-         table tbody tr {
-             display: block;
-             margin-bottom: 15px;
-             border: 1px solid #ddd;
-             border-radius: 4px;
-             padding: 10px;
-             background: #fff;
-             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-         }
+        .action-btn, .btn {
+            width: 100%;
+            margin-bottom: 5px;
+        }
 
-         table tbody td {
-             display: flex;
-             justify-content: space-between;
-             padding: 8px;
-             border-bottom: none;
-         }
+        .logo-placeholder, img {
+            width: 30px;
+            height: 30px;
+        }
 
-             table tbody td::before {
-                 content: attr(data-label);
-                 font-weight: bold;
-                 color: #007bff;
-                 flex: 1;
-             }
+        .input-group {
+            flex-direction: column;
+        }
+    }
 
-             table tbody td:not(:last-child) {
-                 border-bottom: 1px solid #eee;
-             }
+    @@media (min-width: 769px) and (max-width: 1024px) {
+        .table-container {
+            padding: 15px;
+        }
 
-     .action-btn, .btn {
-         width: 100%;
-         margin-bottom: 5px;
-     }
+        table th, table td {
+            padding: 10px;
+            font-size: 14px;
+        }
 
-     .logo-placeholder, img {
-         width: 30px;
-         height: 30px;
-     }
+        .action-btn, .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            min-width: 70px;
+        }
 
-     .input-group {
-         flex-direction: column;
-     }
+        .logo-placeholder, img {
+            width: 35px;
+            height: 35px;
+        }
+    }
 
-     }
-
-     @@media (min-width: 769px) and (max-width: 1024px) {
-         .table-container
-
-     {
-         padding: 15px;
-     }
-
-     table th, table td {
-         padding: 10px;
-         font-size: 14px;
-     }
-
-     .action-btn, .btn {
-         padding: 6px 12px;
-         font-size: 14px;
-         min-width: 70px;
-     }
-
-     .logo-placeholder, img {
-         width: 35px;
-         height: 35px;
-     }
-
-     }
-
-     @@media (min-width: 1025px) {
-         table th, table td
-
-     {
-         font-size: 16px;
-     }
-
-     }
+    @@media (min-width: 1025px) {
+        table th, table td {
+            font-size: 16px;
+        }
+    }
 </style>
 
 <div class="page active" id="lowongan">
@@ -304,10 +289,10 @@
                         <td data-label="Status">@lowongan.status</td>
                         <td data-label="Aksi">
                             <a href="@Url.Action("LowonganPekerjaanAddUpdate", "DashboardPerusahaan", new { id = lowongan.Id })" class="btn btn-sm btn-update"><i class="bi bi-pencil"></i> Update</a>
-                            <form method="post" action="@Url.Action("DeleteLowonganPekerjaan", "DashboardPerusahaan")" style="display:inline">
+                            <form class="low-form" method="post" action="@Url.Action("DeleteLowonganPekerjaan", "DashboardPerusahaan")" style="display:inline">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="id" value="@lowongan.Id" />
-                                <button type="submit" class="btn btn-sm btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus Kategori ini?');"><i class="bi bi-trash"></i> Delete</button>
+                                <button type="submit" class="btn btn-sm btn-delete"><i class="bi bi-trash"></i> Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -320,3 +305,65 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Tangkap SEMUA form delete dengan class
+        const deleteForms = document.querySelectorAll('.low-form');
+
+        // Loop melalui setiap form
+        deleteForms.forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Simpan referensi form yang diklik
+                const currentForm = this;
+
+                // Tampilkan konfirmasi
+                Swal.fire({
+                    title: 'Hapus Lowongan?',
+                    text: "Apakah Anda yakin ingin menghapus lowongan ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit form yang spesifik
+                        currentForm.submit();
+                    }
+                });
+            });
+        });
+
+        // Tampilkan popup success jika ada pesan dari controller
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        title: 'Berhasil!',
+                    text: '@TempData["SuccessMessage"]',
+                    icon: 'success',
+                    confirmButtonColor: '#0a66c2'
+                        });
+        </text>
+    }
+
+            // Tampilkan popup error jika ada pesan dari controller
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        title: 'Gagal!',
+                    text: '@TempData["ErrorMessage"]',
+                    icon: 'error',
+                    confirmButtonColor: '#d33'
+                        });
+        </text>
+    }
+        });
+</script>

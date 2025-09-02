@@ -1,19 +1,29 @@
-﻿<!DOCTYPE html>
+﻿@using PROJECT_CAREERCIN.Interfaces
+@inject IUser UserService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerConnect - Job Portal</title>
+    <title>CareerCin - Job Portal</title>
     <style>
         /* Global Styles */
         :root {
             --primary: #0a66c2;
+            --primary-light: #e2f0fe;
             --secondary: #ffffff;
             --dark: #000000;
             --light-gray: #eef3f8;
             --gray: #666666;
             --dark-gray: #333333;
             --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
         }
 
         * {
@@ -27,6 +37,7 @@
             background-color: var(--light-gray);
             color: var(--dark-gray);
             transition: var(--transition);
+            line-height: 1.6;
         }
 
         .container {
@@ -85,8 +96,8 @@
 
             .search-bar input {
                 width: 100%;
-                padding: 10px 15px 10px 40px;
-                border-radius: 5px;
+                padding: 12px 15px 12px 40px;
+                border-radius: var(--border-radius);
                 border: 1px solid #ccc;
                 font-size: 14px;
                 transition: var(--transition);
@@ -123,6 +134,7 @@
                 flex-direction: column;
                 align-items: center;
                 transition: var(--transition);
+                padding: 5px;
             }
 
                 .nav-links a:hover {
@@ -226,8 +238,8 @@
         .sidebar {
             width: 25%;
             background-color: var(--secondary);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 20px;
             position: sticky;
             top: 90px;
@@ -260,30 +272,39 @@
             font-weight: 600;
             margin-bottom: 15px;
             color: var(--dark-gray);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--light-gray);
         }
 
         .sidebar-link {
             display: flex;
             align-items: center;
-            padding: 8px 0;
+            padding: 10px 0;
             color: var(--gray);
             text-decoration: none;
             font-size: 14px;
             transition: var(--transition);
+            border-radius: 4px;
         }
 
             .sidebar-link:hover {
                 color: var(--primary);
+                background-color: var(--primary-light);
+                padding-left: 10px;
             }
 
             .sidebar-link i {
                 margin-right: 10px;
                 font-size: 18px;
+                width: 24px;
+                text-align: center;
             }
 
             .sidebar-link.active {
                 color: var(--primary);
                 font-weight: 500;
+                background-color: var(--primary-light);
+                padding-left: 10px;
             }
 
         .sidebar-divider {
@@ -315,7 +336,20 @@
             font-weight: 600;
             margin-bottom: 20px;
             color: var(--dark-gray);
+            position: relative;
+            padding-bottom: 10px;
         }
+
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background-color: var(--primary);
+                border-radius: 2px;
+            }
 
         .job-cards {
             display: grid;
@@ -326,12 +360,13 @@
 
         .job-card {
             background-color: var(--secondary);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 20px;
             transition: var(--transition);
             animation: fadeInUp 0.5s ease;
             position: relative;
+            border: 1px solid transparent;
         }
 
         @@keyframes fadeInUp {
@@ -348,7 +383,8 @@
 
         .job-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary-light);
         }
 
         .job-card-header {
@@ -451,7 +487,7 @@
             background-color: var(--primary);
             color: var(--secondary);
             border: none;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             padding: 8px 15px;
             font-size: 14px;
             font-weight: 500;
@@ -473,17 +509,19 @@
         /* Notifications Section */
         .notification-card {
             background-color: var(--secondary);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 15px;
             margin-bottom: 15px;
             display: flex;
             align-items: flex-start;
             transition: var(--transition);
+            border-left: 3px solid transparent;
         }
 
             .notification-card:hover {
                 transform: translateX(5px);
+                border-left-color: var(--primary);
             }
 
         .notification-icon {
@@ -535,8 +573,8 @@
         /* Saved Jobs Section */
         .saved-jobs-list {
             background-color: var(--secondary);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             overflow: hidden;
         }
 
@@ -592,8 +630,8 @@
         /* Application History Section */
         .application-history {
             background-color: var(--secondary);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             overflow: hidden;
         }
 
@@ -676,8 +714,8 @@
         /* Profile Section */
         .profile-section {
             background-color: var(--secondary);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 30px;
             animation: fadeIn 0.5s ease;
         }
@@ -730,7 +768,7 @@
             background-color: var(--secondary);
             color: var(--primary);
             border: 1px solid var(--primary);
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             padding: 8px 15px;
             font-size: 14px;
             font-weight: 500;
@@ -751,7 +789,19 @@
             font-weight: 600;
             margin-bottom: 15px;
             color: var(--dark-gray);
+            position: relative;
+            padding-bottom: 8px;
         }
+
+            .profile-details-title::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 40px;
+                height: 2px;
+                background-color: var(--primary);
+            }
 
         .profile-details-content {
             font-size: 14px;
@@ -772,16 +822,22 @@
         .skill-tag {
             background-color: var(--light-gray);
             color: var(--dark-gray);
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-size: 13px;
+            transition: var(--transition);
         }
+
+            .skill-tag:hover {
+                background-color: var(--primary-light);
+                color: var(--primary);
+            }
 
         /* Footer */
         footer {
             background-color: var(--secondary);
-            padding: 20px 0;
-            margin-top: 30px;
+            padding: 30px 0;
+            margin-top: 50px;
             border-top: 1px solid #eee;
         }
 
@@ -800,16 +856,33 @@
             .footer-links a {
                 text-decoration: none;
                 color: var(--gray);
-                font-size: 13px;
+                font-size: 14px;
                 transition: var(--transition);
+                padding: 5px 0;
+                position: relative;
             }
 
                 .footer-links a:hover {
                     color: var(--primary);
                 }
 
+                .footer-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background-color: var(--primary);
+                    transition: var(--transition);
+                }
+
+                .footer-links a:hover::after {
+                    width: 100%;
+                }
+
         .copyright {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--gray);
         }
 
@@ -838,6 +911,7 @@
 
             .logo {
                 margin-bottom: 10px;
+                justify-content: center;
             }
 
             .search-bar {
@@ -845,7 +919,7 @@
             }
 
             .nav-links {
-                justify-content: space-between;
+                justify-content: space-around;
                 margin-top: 10px;
             }
 
@@ -862,11 +936,30 @@
                 margin-right: 0;
                 margin-bottom: 20px;
             }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         @@media (max-width: 576px) {
             .job-cards {
                 grid-template-columns: 1fr;
+            }
+
+            .job-card-header {
+                flex-direction: column;
+            }
+
+            .company-logo {
+                margin-bottom: 10px;
             }
 
             .job-card-footer {
@@ -878,7 +971,223 @@
             .quick-apply-btn {
                 width: 100%;
             }
+
+            .notification-card {
+                flex-direction: column;
+            }
+
+            .notification-icon {
+                margin-bottom: 10px;
+            }
+
+            .notification-actions {
+                margin-top: 10px;
+                justify-content: center;
+            }
         }
+
+        /* Additional styles for specific sections */
+        .filter-section {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .filter-option input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+
+        .filter-label {
+            font-size: 13px;
+            color: var(--dark-gray);
+        }
+
+        .help-section {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .help-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+            .help-item:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+        .help-question {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+
+        .help-answer {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .about-section {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .about-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .about-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--dark-gray);
+        }
+
+        .policy-section {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .policy-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .policy-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--dark-gray);
+        }
+
+            .policy-content h3 {
+                font-size: 16px;
+                margin: 15px 0 8px 0;
+                color: var(--dark-gray);
+            }
+
+            .policy-content p {
+                margin-bottom: 10px;
+            }
+
+            .policy-content ul {
+                margin-left: 20px;
+                margin-bottom: 15px;
+            }
+
+        .help-center-section {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .help-search {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+            .help-search input {
+                width: 100%;
+                padding: 12px 15px 12px 40px;
+                border-radius: var(--border-radius);
+                border: 1px solid #ccc;
+                font-size: 14px;
+                transition: var(--transition);
+            }
+
+                .help-search input:focus {
+                    outline: none;
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.2);
+                }
+
+            .help-search i {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--gray);
+            }
+
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .help-category {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+            .help-category:hover {
+                background-color: var(--primary-light);
+                transform: translateY(-3px);
+            }
+
+            .help-category i {
+                font-size: 24px;
+                color: var(--primary);
+                margin-bottom: 10px;
+            }
+
+            .help-category h3 {
+                font-size: 16px;
+                margin-bottom: 8px;
+                color: var(--dark-gray);
+            }
+
+            .help-category p {
+                font-size: 14px;
+                color: var(--gray);
+            }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -888,7 +1197,7 @@
         <div class="container header-container">
             <a href="#" class="logo" onclick="showSection('home')">
                 <i class="fas fa-briefcase"></i>
-                <span>CareerConnect</span>
+                <span>CareerCin</span>
             </a>
 
             <div class="search-bar">
@@ -927,23 +1236,21 @@
                 </li>
             </ul>
 
-            <div class="language-switcher">
-                <button class="language-btn" onclick="toggleLanguage()">
-                    <span id="language-text">English</span>
-                    <i class="fas fa-globe"></i>
-                </button>
-            </div>
-
-            <form asp-controller="LoginPage" asp-action="Logout" method="post" style="display: inline;">
-                <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; width: 100%; text-align: left; padding: 12px; font-size: 18px; display: flex; align-items: center;">
-                    <i class="fas fa-sign-out-alt" style="margin-right: 10px;"></i> Keluar
-                </button>
-            </form>
-
             <div class="profile-dropdown">
-                <button class="profile-btn" onclick="showSection('profile')">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-img">
-                </button>
+                <a href="/DashboardUser/UserProfile" class="profile-btn">
+                    @{
+                        // Ambil data user langsung dari service
+                        var userProfile = UserService.GetCurrentUser();
+                    }
+                    @if (userProfile != null && !string.IsNullOrEmpty(userProfile.ProfileImage))
+                    {
+                        <img src="@userProfile.ProfileImage" alt="Profile" class="profile-img">
+                    }
+                    else
+                    {
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-img">
+                    }
+                </a>
             </div>
         </div>
     </header>
@@ -978,15 +1285,15 @@
 
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">Job Preferences</h3>
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-sliders-h"></i>
+                        <a href="#" class="sidebar-link" onclick="showSection('job-alerts')">
+                            <i class="fas fa-bell"></i>
                             <span>Job Alerts</span>
                         </a>
-                        <a href="#" class="sidebar-link">
+                        <a href="#" class="sidebar-link" onclick="showSection('search-filters')">
                             <i class="fas fa-filter"></i>
                             <span>Search Filters</span>
                         </a>
-                        <a href="#" class="sidebar-link">
+                        <a href="#" class="sidebar-link" onclick="showSection('career-interests')">
                             <i class="fas fa-user-cog"></i>
                             <span>Career Interests</span>
                         </a>
@@ -996,11 +1303,11 @@
 
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">Resources</h3>
-                        <a href="#" class="sidebar-link">
+                        <a href="#" class="sidebar-link" onclick="showSection('learning')">
                             <i class="fas fa-graduation-cap"></i>
                             <span>Learning</span>
                         </a>
-                        <a href="#" class="sidebar-link">
+                        <a href="#" class="sidebar-link" onclick="showSection('job-search-help')">
                             <i class="fas fa-question-circle"></i>
                             <span>Job Search Help</span>
                         </a>
@@ -1011,65 +1318,197 @@
                 <div class="main-content">
                     <!-- Home Section (Default) -->
                     @RenderBody()
-                    <!-- Notifications Section (Hidden by default) -->
-                    <!-- Saved Jobs Section (Hidden by default) -->
-                    <!-- Application History Section (Hidden by default) -->
-                    <!-- Profile Section (Hidden by default) -->
-                    <section id="profile-section" class="hidden-section">
-                        <div class="profile-section">
-                            <div class="profile-header">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-avatar">
-                                <div class="profile-info">
-                                    <h1 class="profile-name">Andi Wijaya</h1>
-                                    <p class="profile-title">Senior Frontend Developer</p>
-                                    <p class="profile-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Jakarta, Indonesia
-                                    </p>
-                                    <button class="profile-edit-btn">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        Edit Profile
-                                    </button>
+
+                    <!-- Search Filters Section (Hidden by default) -->
+                    <section id="search-filters-section" class="hidden-section">
+                        <h2 class="section-title">Search Filters</h2>
+                        <div class="filter-section">
+                            <div class="filter-group">
+                                <h3 class="filter-title">Job Type</h3>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="job-type" value="full-time">
+                                        <span class="filter-label">Full-time</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="job-type" value="part-time">
+                                        <span class="filter-label">Part-time</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="job-type" value="contract">
+                                        <span class="filter-label">Contract</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="job-type" value="internship">
+                                        <span class="filter-label">Internship</span>
+                                    </label>
                                 </div>
                             </div>
 
-                            <div class="profile-details">
-                                <h2 class="profile-details-title">About</h2>
-                                <p class="profile-details-content">
-                                    Experienced Frontend Developer with 5+ years of experience building responsive and accessible web applications.
-                                    Passionate about user experience and clean code. Proficient in React, Vue.js, and modern JavaScript.
-                                </p>
+                            <div class="filter-group">
+                                <h3 class="filter-title">Experience Level</h3>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="experience" value="entry">
+                                        <span class="filter-label">Entry Level</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="experience" value="mid">
+                                        <span class="filter-label">Mid Level</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="experience" value="senior">
+                                        <span class="filter-label">Senior Level</span>
+                                    </label>
+                                </div>
                             </div>
 
-                            <div class="profile-details">
-                                <h2 class="profile-details-title">Experience</h2>
-                                <p class="profile-details-content">
-                                    <strong>Senior Frontend Developer</strong> at Tokopedia (2019 - Present)<br>
-                                    <strong>Frontend Developer</strong> at Bukalapak (2017 - 2019)<br>
-                                    <strong>Web Developer</strong> at Freelance (2015 - 2017)
-                                </p>
+                            <div class="filter-group">
+                                <h3 class="filter-title">Salary Range</h3>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="salary" value="0-500">
+                                        <span class="filter-label">$0 - $500</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="salary" value="500-1000">
+                                        <span class="filter-label">$500 - $1000</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="salary" value="1000+">
+                                        <span class="filter-label">$1000+</span>
+                                    </label>
+                                </div>
                             </div>
 
-                            <div class="profile-details">
-                                <h2 class="profile-details-title">Education</h2>
-                                <p class="profile-details-content">
-                                    <strong>Bachelor of Computer Science</strong> - University of Indonesia (2011 - 2015)
-                                </p>
+                            <button class="quick-apply-btn" style="width: 100%; margin-top: 15px;">Apply Filters</button>
+                        </div>
+                    </section>
+
+                    <!-- Job Search Help Section (Hidden by default) -->
+                    <section id="job-search-help-section" class="hidden-section">
+                        <h2 class="section-title">Job Search Help</h2>
+                        <div class="help-section">
+                            <div class="help-item">
+                                <h3 class="help-question">How to create an effective resume?</h3>
+                                <p class="help-answer">Tailor your resume to each job application, highlight your most relevant skills and experiences, and use keywords from the job description.</p>
                             </div>
 
-                            <div class="profile-skills">
-                                <h2 class="profile-details-title">Skills</h2>
-                                <div class="skills-list">
-                                    <span class="skill-tag">JavaScript</span>
-                                    <span class="skill-tag">React</span>
-                                    <span class="skill-tag">Vue.js</span>
-                                    <span class="skill-tag">HTML5</span>
-                                    <span class="skill-tag">CSS3</span>
-                                    <span class="skill-tag">SASS</span>
-                                    <span class="skill-tag">TypeScript</span>
-                                    <span class="skill-tag">Git</span>
-                                    <span class="skill-tag">Responsive Design</span>
-                                    <span class="skill-tag">UI/UX</span>
+                            <div class="help-item">
+                                <h3 class="help-question">How to prepare for a job interview?</h3>
+                                <p class="help-answer">Research the company, practice common interview questions, prepare questions to ask the interviewer, and dress appropriately.</p>
+                            </div>
+
+                            <div class="help-item">
+                                <h3 class="help-question">How to negotiate salary?</h3>
+                                <p class="help-answer">Research industry standards, know your worth, be confident but flexible, and consider the entire compensation package.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- About Section (Hidden by default) -->
+                    <section id="about-section" class="hidden-section">
+                        <h2 class="section-title">About CareerCin</h2>
+                        <div class="about-section">
+                            <p class="about-content">
+                                CareerCin is a leading job portal dedicated to connecting talented professionals with top employers.
+                                Our mission is to make the job search process easier, faster, and more effective for both job seekers and employers.
+                            </p>
+                            <p class="about-content">
+                                Founded in 2023, we've helped thousands of people find their dream jobs and companies find their ideal candidates.
+                                Our advanced matching algorithm and user-friendly interface make the job search process seamless and efficient.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Privacy Policy Section (Hidden by default) -->
+                    <section id="privacy-section" class="hidden-section">
+                        <h2 class="section-title">Privacy Policy</h2>
+                        <div class="policy-section">
+                            <div class="policy-content">
+                                <h3>Information We Collect</h3>
+                                <p>We collect information you provide directly to us, such as when you create an account, submit a job application, or update your profile.</p>
+
+                                <h3>How We Use Your Information</h3>
+                                <p>We use the information we collect to provide, maintain, and improve our services, to develop new services, and to protect our users.</p>
+
+                                <h3>Information Sharing</h3>
+                                <p>We do not share your personal information with companies, organizations, or individuals outside of CareerCin except in the following cases:</p>
+                                <ul>
+                                    <li>With your consent</li>
+                                    <li>For external processing by our trusted service providers</li>
+                                    <li>For legal reasons</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Terms Section (Hidden by default) -->
+                    <section id="terms-section" class="hidden-section">
+                        <h2 class="section-title">Terms of Service</h2>
+                        <div class="policy-section">
+                            <div class="policy-content">
+                                <h3>Account Terms</h3>
+                                <p>You are responsible for maintaining the security of your account and for all activities that occur under your account.</p>
+
+                                <h3>User Content</h3>
+                                <p>You retain ownership of any intellectual property rights that you hold in the content you submit to CareerCin.</p>
+
+                                <h3>Termination</h3>
+                                <p>We may suspend or terminate your account if you violate any of our policies or if we are investigating suspected misconduct.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Cookie Policy Section (Hidden by default) -->
+                    <section id="cookie-section" class="hidden-section">
+                        <h2 class="section-title">Cookie Policy</h2>
+                        <div class="policy-section">
+                            <div class="policy-content">
+                                <h3>What Are Cookies</h3>
+                                <p>Cookies are small text files that are placed on your device by websites that you visit.</p>
+
+                                <h3>How We Use Cookies</h3>
+                                <p>We use cookies to understand how you use our site, to remember your preferences, and to personalize your experience.</p>
+
+                                <h3>Managing Cookies</h3>
+                                <p>You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Help Center Section (Hidden by default) -->
+                    <section id="help-center-section" class="hidden-section">
+                        <h2 class="section-title">Help Center</h2>
+                        <div class="help-center-section">
+                            <div class="help-search">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search for help articles...">
+                            </div>
+
+                            <div class="help-categories">
+                                <div class="help-category">
+                                    <i class="fas fa-user-circle"></i>
+                                    <h3>Account Settings</h3>
+                                    <p>Learn how to manage your account settings and preferences.</p>
+                                </div>
+
+                                <div class="help-category">
+                                    <i class="fas fa-file-alt"></i>
+                                    <h3>Resume Help</h3>
+                                    <p>Get tips on creating an effective resume that stands out.</p>
+                                </div>
+
+                                <div class="help-category">
+                                    <i class="fas fa-briefcase"></i>
+                                    <h3>Job Search</h3>
+                                    <p>Find out how to make the most of our job search features.</p>
+                                </div>
+
+                                <div class="help-category">
+                                    <i class="fas fa-building"></i>
+                                    <h3>For Employers</h3>
+                                    <p>Information for companies looking to post jobs on our platform.</p>
                                 </div>
                             </div>
                         </div>
@@ -1078,23 +1517,22 @@
             </div>
         </div>
     </main>
+
     <!-- Footer -->
     <footer>
         <div class="container footer-container">
             <ul class="footer-links">
-                <li><a href="#">About</a></li>
-                <li><a href="#">Privacy</a></li>
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Cookie Policy</a></li>
-                <li><a href="#">Help Center</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" onclick="showSection('privacy')">Privacy</a></li>
+                <li><a href="#" onclick="showSection('terms')">Terms</a></li>
+                <li><a href="#" onclick="showSection('cookie')">Cookie Policy</a></li>
+                <li><a href="#" onclick="showSection('help-center')">Help Center</a></li>
             </ul>
-            <p class="copyright">© 2023 CareerConnect. All rights reserved.</p>
+            <p class="copyright">© 2023 CareerCin. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-
-
         // Handle form submission on input change with debounce
         const searchInput = document.querySelector('.search-bar input');
         let searchTimeout;
@@ -1114,21 +1552,21 @@
             }
         });
 
-
-
         // Function to toggle between sections
         function showSection(sectionId) {
             // Hide all sections
             document.querySelectorAll('.hidden-section').forEach(section => {
                 section.style.display = 'none';
             });
-            document.getElementById('home-section').style.display = 'none';
 
             // Show the selected section
             if (sectionId === 'home') {
-                document.getElementById('home-section').style.display = 'block';
+                // Home section is handled by the server-side rendering
             } else {
-                document.getElementById(sectionId + '-section').style.display = 'block';
+                const sectionElement = document.getElementById(sectionId + '-section');
+                if (sectionElement) {
+                    sectionElement.style.display = 'block';
+                }
             }
 
             // Update active nav link
@@ -1143,9 +1581,15 @@
                 document.querySelector('.nav-links li:first-child a').classList.add('active');
                 document.querySelector('.sidebar-link:first-child').classList.add('active');
             } else {
-                document.querySelector(`.nav-links a[onclick="showSection('${sectionId}')"]`).classList.add('active');
-                document.querySelector(`.sidebar-link[onclick="showSection('${sectionId}')"]`).classList.add('active');
+                const navLink = document.querySelector(`.nav-links a[onclick="showSection('${sectionId}')"]`);
+                const sidebarLink = document.querySelector(`.sidebar-link[onclick="showSection('${sectionId}')"]`);
+
+                if (navLink) navLink.classList.add('active');
+                if (sidebarLink) sidebarLink.classList.add('active');
             }
+
+            // Scroll to top when switching sections
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Function to toggle job save
