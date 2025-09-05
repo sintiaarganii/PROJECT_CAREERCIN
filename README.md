@@ -16,7 +16,7 @@ CareerCin adalah sistem informasi pencarian kerja yang menggunakan 3 role dan me
   Mengelola data pengguna, perusahaan, kategori pekerjaan, dan lowongan.
 ## Teknologi yang Digunakan</h2>
 - Frontend: Razor View Engine, HTML5, CSS3, Bootstrap 5, Font Awesome.
-- Backend: ASP.NET Core MVC (.NET 6/7).
+- Backend: ASP.NET Core MVC (.NET 8).
 - Database: MySQL-SqlYog.
 - ORM: Entity Framework Core.
 - Fitur Tambahan:
@@ -31,26 +31,55 @@ OTP untuk verifikasi akun.
    Atur koneksi database di appsettings.json:
 3. Install Dependencies
    Pastikan .NET SDK sudah terpasang. Jalankan:
-
-## Struktur Project
-CareerCin/
-│
-├── Controllers/      # Controller untuk user, perusahaan, admin
-├── Models/           # Model dan DTO
-├── Views/            # Razor Views (UI)
-├── wwwroot/          # Static files (CSS, JS, Images)
-├── appsettings.json  # Konfigurasi aplikasi
-└── Program.cs        # Entry point aplikasi
-
 ## Cara Menggunakan
 1. Jalankan aplikasi.
-2. Pertama yang harus di jalankan yaitu admin untuk usernamenya = "admin" dan passwordnya = "admin123", kenapa admin duluan yg dijalankan? karena di admin kita harus add kategori, nah kategori ini digunakan nanti di perusahaan saat add lowongan. admin juga bisa delete atau edit kategori. admin juga berperan untuk mengelola atau memanajemen akun perusahaan dan pelamar, juga bisa mengelola lowongan yang dibuat oleh perusahaan (jadi jika lowongan tersebut tidak sesuai dengan SOP maka admin bisa memblokirnya).
-3. kedua yaitu perusahaan, pertama kamu harus registrasi dulu, terus login, dan nanti akan masuk ke dashboard perusahaan, nah perusahaan ini bisa membuat lowongan, lengkap dengan crudnya. juga perusahaan bisa mengelola pelamar (diterima atau ditolak lamarannya), dan bisa edit profile jugaa.
+2. Jalankan sebagai Admin
+   Username: admin
+   Password: admin123
+Mengapa admin dijalankan terlebih dahulu?
+Karena admin memiliki peran penting dalam mempersiapkan data awal untuk sistem, khususnya kategori lowongan pekerjaan yang nantinya akan digunakan oleh perusahaan saat membuat lowongan.
+Fitur-fitur yang dapat dilakukan Admin:
+* Manajemen Kategori:
+- Tambah kategori (contoh: IT, Keuangan, Marketing).
+- Edit kategori (ubah nama kategori jika diperlukan).
+- Hapus kategori (jika kategori tidak relevan lagi).
+* Manajemen Akun:
+- Lihat semua akun perusahaan dan pelamar.
+- Nonaktifkan atau blokir akun yang melanggar kebijakan.
+- Mengaktifkan kembali akun yang diblokir.
+* Manajemen Lowongan:
+- Lihat semua lowongan pekerjaan yang dibuat perusahaan.
+- Validasi lowongan: jika tidak sesuai SOP, admin dapat memblokir lowongan tersebut.
+- Hapus lowongan yang tidak pantas atau melanggar aturan.
+* Tujuan:
+Sebelum perusahaan menambahkan lowongan, kategori pekerjaan harus tersedia agar perusahaan dapat memilih kategori yang sesuai.
+3. Jalankan sebagai Perusahaan
+* Langkah-langkah yang harus dilakukan perusahaan:
+  1. Registrasi akun perusahaan
+  - Mengisi data perusahaan (nama perusahaan, email, alamat, dll).
+  - Setelah registrasi, perusahaan bisa login ke sistem.
+  - Login ke dashboard perusahaan
+  - Masukkan username dan password yang sudah didaftarkan.
+  2. Fitur di Dashboard Perusahaan:
+  * Manajemen Lowongan (CRUD):
+  - Tambah lowongan (dengan memilih kategori yang sudah dibuat oleh admin).
+  - Edit lowongan (ubah detail lowongan jika ada perubahan).
+  - Hapus lowongan (jika lowongan sudah tidak berlaku).
+  - Lihat daftar semua lowongan yang dibuat.
+  * Manajemen Pelamar:
+  - Lihat semua pelamar yang melamar ke lowongan perusahaan.
+  - Aksi terhadap pelamar:
+    1. Terima lamaran.
+    2. Tolak lamaran.
+  - Lihat status lamaran (diterima atau ditolak).
+  * Manajemen Profil Perusahaan:
+  - Update informasi profil (nama, alamat, deskripsi perusahaan, logo).
+  - Ubah password.
 4. Yang Ketiga Ada User atau Pelamar
-   - Registrasi, Login, dan Pengelolaan Profil : Pengguna dapat membuat akun baru melalui proses registrasi yang sederhana, kemudian login untuk mengakses fitur-fitur utama. Setelah berhasil masuk, pengguna dapat mengelola profil mereka dengan mudah, termasuk:
-  - Mengunggah foto profil : Mengisi data diri seperti nama, email, nomor telepon, dan informasi pendidikan. Mengunggah dokumen CV agar perusahaan dapat melihat kualifikasi mereka. Pencarian Lowongan Pekerjaan
-  - Pengguna dapat mencari lowongan pekerjaan berdasarkan: Kategori pekerjaan (misalnya: IT, Keuangan, Desain). Kata kunci spesifik sesuai posisi yang diinginkan.Nama perusahaan untuk melamar di perusahaan tertentu.
-  - Melamar Pekerjaan Secara Online : Dengan hanya beberapa klik, pengguna dapat melamar pekerjaan secara langsung melalui platform ini. Sistem menyediakan opsi untuk mengunggah CV pada setiap lamaran, memastikan perusahaan mendapatkan informasi terbaru mengenai kandidat.
-  - Menyimpan Lowongan Favorit(saved jobs) : CareerCin memungkinkan pengguna untuk menyimpan lowongan yang menarik ke dalam daftar favorit, sehingga mereka dapat mengaksesnya kembali kapan saja tanpa harus mencarinya ulang.
-  - Melihat Riwayat Lamaran (history application) : Pengguna dapat memantau status lamaran yang telah dikirim melalui fitur riwayat lamaran. Dengan demikian, mereka bisa mengetahui apakah lamaran masih dalam proses, diterima, atau ditolak.
-  - Notification : fungsinya untuk memberi tahu user kalo ada lowongan yang sesuai dengan posisi yang dia simpan di profile dia
+    1. Registrasi, Login, dan Pengelolaan Profil : Pengguna dapat membuat akun baru melalui proses registrasi yang sederhana, kemudian login untuk mengakses fitur-fitur utama. Setelah berhasil masuk, pengguna dapat mengelola profil mereka dengan mudah, termasuk:
+    2. Mengunggah foto profil : Mengisi data diri seperti nama, email, nomor telepon, dan informasi pendidikan. Mengunggah dokumen CV agar perusahaan dapat melihat kualifikasi mereka. juga ada fitur logout di dalamnya.
+    3. Pencarian Lowongan Pekerjaan : Pengguna dapat mencari lowongan pekerjaan berdasarkan: Kategori pekerjaan (misalnya: IT, Keuangan, Desain). Kata kunci spesifik sesuai posisi yang diinginkan.Nama perusahaan untuk melamar di perusahaan tertentu.
+    4. Melamar Pekerjaan Secara Online : Dengan hanya beberapa klik, pengguna dapat melamar pekerjaan secara langsung melalui platform ini. Sistem menyediakan opsi untuk mengunggah CV pada setiap lamaran, memastikan perusahaan mendapatkan informasi terbaru mengenai kandidat.
+    5. Menyimpan Lowongan Favorit(saved jobs) : CareerCin memungkinkan pengguna untuk menyimpan lowongan yang menarik ke dalam daftar favorit, sehingga mereka dapat mengaksesnya kembali kapan saja tanpa harus mencarinya ulang.
+   6. Melihat Riwayat Lamaran (history application) : Pengguna dapat memantau status lamaran yang telah dikirim melalui fitur riwayat lamaran. Dengan demikian, mereka bisa mengetahui apakah lamaran masih dalam proses, diterima, atau ditolak.
+  7. Notification : fungsinya untuk memberi tahu user kalo ada lowongan yang sesuai dengan posisi yang dia simpan di profile dia
