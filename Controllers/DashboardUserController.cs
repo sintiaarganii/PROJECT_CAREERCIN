@@ -6,9 +6,9 @@ using PROJECT_CAREERCIN.Models.DTO;
 
 namespace PROJECT_CAREERCIN.Controllers
 {
+    [Authorize(Roles = "User")]
     public class DashboardUserController : Controller
     {
-
         private readonly ILowonganPekerjaan _lowonganPekerjaan;
         private readonly ILamaran _lamaran;
         private readonly ILowonganTersimpan _lowonganTersimpan;
@@ -23,9 +23,11 @@ namespace PROJECT_CAREERCIN.Controllers
             _historyLamaran = historyLamaran;
             _user = user;
         }
-
-
-
+        //================ Job Search Help =============\\
+        public IActionResult JobSearchHelp()
+        {
+            return View();
+        }
         //================ Untuk Profile User =============\\
 
         public IActionResult UserProfile()

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,6 +90,10 @@ builder.Services.AddScoped<IEnkripsiPassword, EnkripsiPasswordHelper>();
 builder.Services.AddScoped<ILoginLayout, LoginLayoutService>();
 builder.Services.AddHttpContextAccessor(); // Untuk mengakses HttpContext
 
+
+
+// Validation
+//builder.Services.addfluent(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterUserValidator>());
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

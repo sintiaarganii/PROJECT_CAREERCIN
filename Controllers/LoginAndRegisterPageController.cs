@@ -32,11 +32,6 @@ namespace PROJECT_CAREERCIN.Controllers
         {
             return View();
         }
-
-
-
-
-
         public IActionResult LoginAdmin()
         {
             return View();
@@ -184,51 +179,55 @@ namespace PROJECT_CAREERCIN.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterUserDTO model)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Data tidak valid. Periksa input Anda.";
+                return View(model);
+            }
+
             try
             {
-
                 Console.WriteLine("Memeriksa keberadaan user...");
                 var userExists = await _userService.UserExistsAsync(model.Username, model.Email);
                 if (userExists)
                 {
-                    Console.WriteLine("User sudah ada");
                     TempData["Error"] = "Username/email sudah digunakan";
                     return View(model);
                 }
-
 
                 Console.WriteLine("Membuat user baru...");
                 var result = await _userService.RegisterAsync(model);
 
                 if (!result)
                 {
-                    Console.WriteLine("Registrasi gagal (return false)");
                     TempData["Error"] = "Registrasi gagal";
                     return View(model);
                 }
 
-                Console.WriteLine("Registrasi berhasil");
                 TempData["Success"] = "Registrasi berhasil! Silakan login.";
                 return RedirectToAction("LoginUser");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {ex.ToString()}");
                 TempData["Error"] = $"Gagal registrasi: {ex.Message}";
                 return View(model);
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> RegisterPerusahaan(RegisterPerusahaanDTO model)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Data tidak valid. Periksa input Anda.";
+                return View(model);
+            }
+
             try
             {
-
-                // Cek apakah perusahaan sudah ada
                 if (await _perusahaan.PerusahaanExistsAsync(model.NamaPerusahaan, model.Email))
                 {
+                    TempData["Error"] = "Nama perusahaan/email sudah terdaftar";
                     return View(model);
                 }
 
@@ -239,16 +238,16 @@ namespace PROJECT_CAREERCIN.Controllers
                     return View(model);
                 }
 
-                // Redirect ke login jika sukses
+                TempData["Success"] = "Registrasi perusahaan berhasil! Silakan login.";
                 return RedirectToAction("LoginPerusahaan");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex}");
                 TempData["Error"] = $"Gagal registrasi: {ex.Message}";
                 return View(model);
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> LoginPerusahaan(LoginPerusahaanDTO model)

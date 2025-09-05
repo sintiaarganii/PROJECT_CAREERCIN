@@ -1,71 +1,244 @@
-﻿﻿@using PROJECT_CAREERCIN.Models.DTO
+﻿@using PROJECT_CAREERCIN.Models.DTO
 @model List<NotificationsDTO>
 @{
     Layout = "_LayoutUser";
 }
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
-    .company-logo {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+    .notifications-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #1a1a1a;
+        position: relative;
+        padding-bottom: 12px;
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #0a66c2, #00a0ff);
+            border-radius: 2px;
+        }
+
+    .notification-card {
+        display: flex;
+        align-items: flex-start;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border-left: 4px solid #0a66c2;
+        position: relative;
         overflow: hidden;
-        display: inline-block;
+    }
+
+        .notification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+    .notification-icon {
+        margin-right: 15px;
         flex-shrink: 0;
+    }
+
+    .company-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border: 1px solid #eaeaea;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
         .company-logo img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            display: block;
         }
+
+    .notification-content {
+        flex-grow: 1;
+        min-width: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .notification-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #1a1a1a;
+        line-height: 1.4;
+    }
+
+    .notification-desc {
+        font-size: 14px;
+        color: #444;
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+    .notification-time {
+        font-size: 12px;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+    }
+
+    .notification-actions {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+        margin-left: 15px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .notification-action-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #6c757d;
+        transition: all 0.3s ease;
+        padding: 8px;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+        .notification-action-btn:hover {
+            background-color: rgba(10, 102, 194, 0.1);
+            color: #0a66c2;
+            transform: scale(1.1);
+        }
+
+        .notification-action-btn.apply-btn:hover {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .notification-action-btn.delete-btn:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+    .empty-notifications {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin-top: 20px;
+    }
+
+        .empty-notifications i {
+            font-size: 64px;
+            color: #dee2e6;
+            margin-bottom: 15px;
+        }
+
+    .quick-apply-btn {
+        background: #0a66c2;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(10, 102, 194, 0.3);
+    }
 </style>
 
 <section id="notifications-section">
-    <h2 class="section-title">Notifications</h2>
+    <div class="notifications-container">
+        <h2 class="section-title">Notifications</h2>
 
-    @foreach (var data in Model)
-    {
-        <div class="notification-card">
-            <div class="notification-icon">
+        @if (Model != null && Model.Any())
+        {
+            <div class="notifications-list">
+                @foreach (var data in Model)
+                {
+                    <div class="notification-card">
+                        <div class="notification-icon">
+                            <div class="company-logo">
+                                <img src="@data.Logo" alt="@data.NamaPerusahaan" onerror="this.src='https://via.placeholder.com/60x60?text=Company'" />
+                            </div>
+                        </div>
 
-                <div class="company-logo">
-                    <img src="@data.Logo" alt="@data.NamaPerusahaan" />
-                </div>
+                        <div class="notification-content">
+                            <h3 class="notification-title">
+                                New job matches your profile: <strong>@data.Posisi</strong> at <strong>@data.NamaPerusahaan</strong>
+                            </h3>
+                            <p class="notification-desc">@data.Deskripsi</p>
+                            <p class="notification-time">@data.TimeAgo</p>
+                        </div>
+
+                        <div class="notification-actions">
+                            <a href="@Url.Action("FormLamaran", "DashboardUser", new { lowonganId = data.Id })"
+                               class="notification-action-btn apply-btn" title="Apply for this job">
+                                <i class="fas fa-paper-plane"></i>
+                            </a>
+
+                            <form class="delete-form" method="post" action="@Url.Action("DeleteNotifications", "DashboardUser")">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@data.Id" />
+                                <button type="submit" class="notification-action-btn delete-btn" title="Delete notification">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="notification-content">
-                <h3 class="notification-title">New job matches your profile:  @data.Posisi at @data.NamaPerusahaan</h3>
-                <h3 class="notification-title">@data.Deskripsi</h3>
-                <p class="notification-time">@data.TimeAgo</p>
+        }
+        else
+        {
+            <div class="empty-notifications">
+                <i class="fas fa-bell"></i>
+                <h3>No notifications yet</h3>
+                <p>You'll see important updates here</p>
+                <a href="@Url.Action("Index", "DashboardUser")" class="quick-apply-btn">
+                    Browse Jobs <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <div class="notification-actions">
-                <form id="deleteForm" method="post" action="@Url.Action("DeleteNotifications", "DashboardUser")">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="id" value="@data.Id" />
-                    @* <button class="notification-action-btn">
-                <i class="fas fa-times"></i>
-                </button> *@
-                    <button class="saved-job-action-btn" title="Apply">
-                        <a href="@Url.Action("FormLamaran", "DashboardUser", new { lowonganId = data.Id })" class="fas fa-paper-plane">
-                        </a>
-                    </button>
-                    <button class="saved-job-action-btn" title="Remove">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    }
+        }
+    </div>
 </section>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("#deleteForm").forEach(function (form) {
-            form.addEventListener("submit", function (e) {
-                e.preventDefault(); // cegah submit langsung
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
 
                 Swal.fire({
                     title: 'Yakin ingin menghapus?',
@@ -78,7 +251,6 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Submit form
                         fetch(form.action, {
                             method: form.method,
                             body: new FormData(form)
@@ -92,8 +264,9 @@
                                         showConfirmButton: false,
                                         timer: 1500
                                     }).then(() => {
-                                        // Reload page atau hapus element dari DOM
-                                        location.reload();
+                                        const notification = form.closest('.notification-card');
+                                        notification.style.opacity = '0';
+                                        setTimeout(() => notification.remove(), 300);
                                     });
                                 } else {
                                     Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus.', 'error');

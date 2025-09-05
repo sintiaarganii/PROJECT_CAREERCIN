@@ -1,0 +1,423 @@
+﻿@{
+    Layout = "_LayoutUser";
+}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerConnect - Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a66c2;
+            --primary-light: #e2f0fe;
+            --secondary: #ffffff;
+            --dark: #000000;
+            --light-gray: #eef3f8;
+            --gray: #666666;
+            --dark-gray: #333333;
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .resources-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .resources-header h1 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .resources-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .resources-header p {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .resource-card {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid var(--primary);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .resource-card h2 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .resource-features {
+            margin-bottom: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .feature-icon {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .resource-link {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--secondary);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .resource-link:hover {
+            background-color: #004182;
+        }
+
+        .learning-courses {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .course-card:hover {
+            background-color: var(--primary-light);
+        }
+
+        .course-card h3 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .course-card p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .help-resources {
+            background-color: var(--secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+        }
+
+        .help-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .help-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .help-item h3 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .help-item h3 i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .help-item p {
+            font-size: 15px;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .help-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .help-link i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .help-link:hover i {
+            transform: translateX(3px);
+        }
+
+        @@media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="resources-header">
+            <h1>Sumber Daya Karir</h1>
+            <p>Tingkatkan perjalanan karier Anda dengan alat dan sumber daya yang kami sediakan</p>
+        </div>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Pembelajaran</h2>
+                <p>Tingkatkan keterampilan dan pengetahuan Anda dengan kursus dan materi pembelajaran yang dirancang untuk kesuksesan karier.</p>
+
+                <div class="resource-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">Kursus online dengan sertifikat</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">Materi pembelajaran mandiri</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">Webinar dan workshop langsung</div>
+                    </div>
+                </div>
+
+                <a href="#" class="resource-link">Jelajahi Pembelajaran</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2>Bantuan Pencarian Kerja</h2>
+                <p>Dapatkan panduan ahli dan dukungan dalam perjalanan pencarian kerja Anda, dari aplikasi hingga negosiasi penawaran.</p>
+
+                <div class="resource-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">Ulasan resume dan surat lamaran</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">Persiapan wawancara dan simulasi</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">Strategi pencarian kerja yang efektif</div>
+                    </div>
+                </div>
+
+                <a href="#" class="resource-link">Dapatkan Bantuan</a>
+            </div>
+        </div>
+
+        <div class="learning-courses">
+            <h2 class="section-title">Kursus Populer</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <h3>Panduan Lengkap Wawancara Kerja</h3>
+                    <p>Pelajari teknik dan strategi untuk sukses dalam wawancara kerja.</p>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 5 jam</span>
+                        <span><i class="fas fa-trophy"></i> Tingkat Pemula</span>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <h3>Membangun Resume yang Menarik</h3>
+                    <p>Buat resume yang menarik perhatian perekrut dalam 6 detik.</p>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 3 jam</span>
+                        <span><i class="fas fa-trophy"></i> Tingkat Menengah</span>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <h3>Strategi Negosiasi Gaji</h3>
+                    <p>Teknik negosiasi untuk mendapatkan paket kompensasi yang ideal.</p>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 4 jam</span>
+                        <span><i class="fas fa-trophy"></i> Tingkat Lanjutan</span>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <h3>Jaringan Profesional yang Efektif</h3>
+                    <p>Kembangkan jaringan profesional yang mendukung karier Anda.</p>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 6 jam</span>
+                        <span><i class="fas fa-trophy"></i> Tingkat Pemula</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="help-resources">
+            <h2 class="section-title">Sumber Bantuan Pencarian Kerja</h2>
+
+            <div class="help-item">
+                <h3><i class="fas fa-file-alt"></i> Template Resume & Surat Lamaran</h3>
+                <p>Akses koleksi template profesional yang dapat disesuaikan untuk membuat aplikasi kerja yang menonjol.</p>
+                <a href="#" class="help-link">Lihat Template <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="help-item">
+                <h3><i class="fas fa-video"></i> Simulasi Wawancara</h3>
+                <p>Berlatih dengan simulator wawancara interaktif dan dapatkan umpan balik instan tentang performa Anda.</p>
+                <a href="#" class="help-link">Coba Simulator <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="help-item">
+                <h3><i class="fas fa-search"></i> Strategi Pencarian Kerja</h3>
+                <p>Pelajari cara meneliti perusahaan, menemukan lowongan tersembunyi, dan memanfaatkan jaringan profesional.</p>
+                <a href="#" class="help-link">Pelajari Strategi <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="help-item">
+                <h3><i class="fas fa-comments"></i> Konseling Karir 1-on-1</h3>
+                <p>Jadwalkan sesi konsultasi pribadi dengan penasihat karier kami untuk panduan yang dipersonalisasi.</p>
+                <a href="#" class="help-link">Jadwalkan Sesi <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -101,7 +101,7 @@ namespace PROJECT_CAREERCIN.Services
 
         public List<LowonganPekerjaanViewDTO> GetListLowonganPekerjaanForUser()
         {
-            var data = _context.LowonganPekerjaans.Include(y => y.Kategori).Include(y => y.Perusahaan).Where(x => x.status != StatusLowongan.StatusLowonganPekerjaan.Delete).Select(x => new LowonganPekerjaanViewDTO
+            var data = _context.LowonganPekerjaans.Include(y => y.Kategori).Include(y => y.Perusahaan).Where(x => x.status != StatusLowongan.StatusLowonganPekerjaan.Delete && x.status != StatusLowongan.StatusLowonganPekerjaan.Closed).Select(x => new LowonganPekerjaanViewDTO
             {
                 Id = x.Id,
                 Logo = !string.IsNullOrEmpty(x.Perusahaan.LogoPath) ? "/" + x.Perusahaan.LogoPath : null,
@@ -180,7 +180,7 @@ namespace PROJECT_CAREERCIN.Services
             data.Posisi = lowonganPekerjaanAddUpdateDTO.Posisi;
             data.Alamat = lowonganPekerjaanAddUpdateDTO.Alamat;
             data.Deskripsi = lowonganPekerjaanAddUpdateDTO.Deskripsi;
-            data.TanggalDibuat = lowonganPekerjaanAddUpdateDTO.TanggalDibuat;
+            data.TanggalDibuat = DateTime.Now;
             data.status = lowonganPekerjaanAddUpdateDTO.status;
             data.KategoriId = lowonganPekerjaanAddUpdateDTO.KategoriId;
 

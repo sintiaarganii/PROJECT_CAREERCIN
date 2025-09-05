@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PROJECT_CAREERCIN.Interfaces;
 using PROJECT_CAREERCIN.Models.DTO;
 
 namespace PROJECT_CAREERCIN.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DashboardAdminController : Controller
     {
         private readonly IKategoriPekerjaan _kategoriPekerjaan;
