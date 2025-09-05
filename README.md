@@ -16,7 +16,7 @@ CareerCin adalah sistem informasi pencarian kerja yang menggunakan 3 role dan me
   Mengelola data pengguna, perusahaan, kategori pekerjaan, dan lowongan.
 ## Teknologi yang Digunakan</h2>
 - Frontend: Razor View Engine, HTML5, CSS3, Bootstrap 5, Font Awesome.
-- Backend: ASP.NET Core MVC (.NET 6/7).
+- Backend: ASP.NET Core MVC (.NET 8).
 - Database: MySQL-SqlYog.
 - ORM: Entity Framework Core.
 - Fitur Tambahan:
