@@ -1,6 +1,7 @@
 ﻿@using PROJECT_CAREERCIN.Models.DTO
 @model List<LowonganTersimpanViewDTO>
 
+
 @{
     Layout = "_LayoutUser";
 }
@@ -23,16 +24,16 @@
         padding-bottom: 12px;
     }
 
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 4px;
-        background: linear-gradient(90deg, #0a66c2, #00a0ff);
-        border-radius: 2px;
-    }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #0a66c2, #00a0ff);
+            border-radius: 2px;
+        }
 
     /* Saved jobs grid */
     .saved-jobs-grid {
@@ -55,22 +56,22 @@
         height: fit-content;
     }
 
-    .saved-job-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    }
+        .saved-job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
 
-    .saved-job-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100px;
-        height: 100px;
-        background: rgba(10, 102, 194, 0.03);
-        border-radius: 0 0 0 100%;
-        z-index: 0;
-    }
+        .saved-job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(10, 102, 194, 0.03);
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
 
     /* Card header */
     .saved-job-header {
@@ -147,10 +148,10 @@
         align-items: center;
     }
 
-    .saved-job-time::before {
-        content: '🕒';
-        margin-right: 5px;
-    }
+        .saved-job-time::before {
+            content: '🕒';
+            margin-right: 5px;
+        }
 
     /* Action buttons */
     .saved-job-actions {
@@ -174,21 +175,21 @@
         justify-content: center;
     }
 
-    .saved-job-action-btn:hover {
-        background-color: rgba(10, 102, 194, 0.1);
-        color: #0a66c2;
-        transform: scale(1.1);
-    }
+        .saved-job-action-btn:hover {
+            background-color: rgba(10, 102, 194, 0.1);
+            color: #0a66c2;
+            transform: scale(1.1);
+        }
 
-    .saved-job-action-btn.apply-btn:hover {
-        background-color: rgba(40, 167, 69, 0.1);
-        color: #28a745;
-    }
+        .saved-job-action-btn.apply-btn:hover {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
 
-    .saved-job-action-btn.delete-btn:hover {
-        background-color: rgba(220, 53, 69, 0.1);
-        color: #dc3545;
-    }
+        .saved-job-action-btn.delete-btn:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
 
     /* Empty state */
     .empty-saved {
@@ -201,22 +202,22 @@
         grid-column: 1 / -1;
     }
 
-    .empty-saved i {
-        font-size: 64px;
-        color: #dee2e6;
-        margin-bottom: 15px;
-    }
+        .empty-saved i {
+            font-size: 64px;
+            color: #dee2e6;
+            margin-bottom: 15px;
+        }
 
-    .empty-saved h3 {
-        font-size: 20px;
-        color: #6c757d;
-        margin-bottom: 10px;
-    }
+        .empty-saved h3 {
+            font-size: 20px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
 
-    .empty-saved p {
-        color: #adb5bd;
-        margin-bottom: 20px;
-    }
+        .empty-saved p {
+            color: #adb5bd;
+            margin-bottom: 20px;
+        }
 
     /* Quick apply button */
     .quick-apply-btn {
@@ -234,39 +235,39 @@
         box-shadow: 0 2px 4px rgba(10, 102, 194, 0.3);
     }
 
-    .quick-apply-btn:hover {
-        background: #004182;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(10, 102, 194, 0.4);
-        color: white;
-        text-decoration: none;
-    }
+        .quick-apply-btn:hover {
+            background: #004182;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(10, 102, 194, 0.4);
+            color: white;
+            text-decoration: none;
+        }
 
-    .quick-apply-btn i {
-        margin-left: 5px;
-        font-size: 12px;
-    }
+        .quick-apply-btn i {
+            margin-left: 5px;
+            font-size: 12px;
+        }
 
     /* Responsive design */
     @@media (max-width: 768px) {
         .saved-jobs-grid {
             grid-template-columns: 1fr;
         }
-        
+
         .saved-job-header {
             flex-direction: column;
         }
-        
+
         .saved-job-info {
             margin: 15px 0;
             width: 100%;
         }
-        
+
         .saved-job-footer {
             flex-direction: column;
             align-items: flex-start;
         }
-        
+
         .saved-job-actions {
             width: 100%;
             justify-content: flex-end;
@@ -279,6 +280,7 @@
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -289,36 +291,53 @@
         animation: fadeInUp 0.5s ease forwards;
     }
 
-    .saved-job-card:nth-child(1) { animation-delay: 0.1s; }
-    .saved-job-card:nth-child(2) { animation-delay: 0.2s; }
-    .saved-job-card:nth-child(3) { animation-delay: 0.3s; }
-    .saved-job-card:nth-child(4) { animation-delay: 0.4s; }
-    .saved-job-card:nth-child(5) { animation-delay: 0.5s; }
-    .saved-job-card:nth-child(6) { animation-delay: 0.6s; }
+        .saved-job-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
 
-    /* Category color variations */
-    .saved-job-card[data-category="IT"] {
-        border-left-color: #0a66c2;
-    }
+        .saved-job-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
 
-    .saved-job-card[data-category="Finance"] {
-        border-left-color: #28a745;
-    }
+        .saved-job-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
 
-    .saved-job-card[data-category="Marketing"] {
-        border-left-color: #ffc107;
-    }
+        .saved-job-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
 
-    .saved-job-card[data-category="Sales"] {
-        border-left-color: #dc3545;
-    }
+        .saved-job-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
 
-    .saved-job-card[data-category="Design"] {
-        border-left-color: #6f42c1;
-    }
+        .saved-job-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        /* Category color variations */
+        .saved-job-card[data-category="IT"] {
+            border-left-color: #0a66c2;
+        }
+
+        .saved-job-card[data-category="Finance"] {
+            border-left-color: #28a745;
+        }
+
+        .saved-job-card[data-category="Marketing"] {
+            border-left-color: #ffc107;
+        }
+
+        .saved-job-card[data-category="Sales"] {
+            border-left-color: #dc3545;
+        }
+
+        .saved-job-card[data-category="Design"] {
+            border-left-color: #6f42c1;
+        }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <section id="saved-jobs-section">
     <div class="saved-container">
@@ -332,7 +351,7 @@
                     <div class="saved-job-card" data-category="@data.NamaPerusahaan">
                         <div class="saved-job-header">
                             <img src="@data.Logo" alt="@data.NamaPerusahaan" class="saved-company-logo" onerror="this.src='https://via.placeholder.com/60x60?text=Company'" />
-                            
+
                             <div class="saved-job-info">
                                 <h3 class="saved-job-title">@data.Posisi</h3>
                                 <p class="saved-job-company">@data.NamaPerusahaan</p>
@@ -342,9 +361,9 @@
 
                         <div class="saved-job-footer">
                             <span class="saved-job-time">Saved @data.TimeAgo</span>
-                            
+
                             <div class="saved-job-actions">
-                                <a href="@Url.Action("FormLamaran", "DashboardUser", new { lowonganId = data.LowonganId })" 
+                                <a href="@Url.Action("FormLamaran", "DashboardUser", new { lowonganId = data.LowonganId })"
                                    class="saved-job-action-btn apply-btn" title="Apply for this job">
                                     <i class="fas fa-paper-plane"></i>
                                 </a>
@@ -378,7 +397,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".deleteForm").forEach(function (form) {
+        document.querySelectorAll(".delete-form").forEach(function (form) {
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
 
@@ -397,9 +416,9 @@
                             method: form.method,
                             body: new FormData(form)
                         })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
+                            .then(response => {
+                                if (response.ok) {
+                                    // Jika response sukses (status 200-299)
                                     Swal.fire({
                                         title: 'Berhasil!',
                                         text: 'Data berhasil dihapus.',
@@ -410,10 +429,12 @@
                                         location.reload();
                                     });
                                 } else {
-                                    Swal.fire('Gagal', data.message || 'Terjadi kesalahan saat menghapus.', 'error');
+                                    // Jika response tidak ok
+                                    throw new Error('Network response was not ok');
                                 }
                             })
-                            .catch(() => {
+                            .catch(error => {
+                                console.error('Error:', error);
                                 Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
                             });
                     }

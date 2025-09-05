@@ -90,11 +90,5 @@ namespace PROJECT_CAREERCIN.Models
 
             base.OnModelCreating(modelBuilder);
         }
-
-        //private string HashPassword(string password)
-        //{
-        //    // Implementasi hashing password (gunakan BCrypt atau metode secure lainnya)
-        //    return BCrypt.Net.BCrypt.HashPassword(password);
-        //}
     }
 }

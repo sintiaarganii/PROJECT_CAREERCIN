@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using FluentValidation;
+using PROJECT_CAREERCIN.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,14 +19,10 @@ var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
 builder.Services.AddDbContext<ApplicationContext>(
     dbContextOptions => dbContextOptions
         .UseMySql(builder.Configuration.GetConnectionString("MySQLconnection"), serverVersion)
-    // The following three options help with debugging, but should
-    // be changed or removed for production.
         .LogTo(Console.WriteLine, LogLevel.Information)
         .EnableSensitiveDataLogging()
         .EnableDetailedErrors()
 );
-
-
 
 // Konfigurasi JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -70,8 +67,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
 // Registrasi Services
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IPerusahaan, PerusahaanService>();
@@ -90,10 +85,16 @@ builder.Services.AddScoped<IEnkripsiPassword, EnkripsiPasswordHelper>();
 builder.Services.AddScoped<ILoginLayout, LoginLayoutService>();
 builder.Services.AddHttpContextAccessor(); // Untuk mengakses HttpContext
 
+// Registrasi validator
+builder.Services.AddControllersWithViews();
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterCompanyRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CategoryJobRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateUserRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ApplicationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<JobRequestValidator>();
 
 
-// Validation
-//builder.Services.addfluent(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterUserValidator>());
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

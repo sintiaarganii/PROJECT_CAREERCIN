@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.ComponentModel.DataAnnotations;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PROJECT_CAREERCIN.Interfaces;
 using PROJECT_CAREERCIN.Models.DTO;
+using FluentValidation.Results;
+
 
 namespace PROJECT_CAREERCIN.Controllers
 {
@@ -13,13 +17,19 @@ namespace PROJECT_CAREERCIN.Controllers
         private readonly IPerusahaan _perusahaan;
         private readonly IUser _user;
         private readonly IDashboardAdminService _dashboardAdminService;
-        public DashboardAdminController(IKategoriPekerjaan kategoriPekerjaan, ILowonganPekerjaan lowonganPekerjaan, IPerusahaan perusahaan, IUser user, IDashboardAdminService dashboardAdminService)
+        private readonly IValidator<KategoriPekerjaanDTO> _categoryJobValidator;
+        public DashboardAdminController(IKategoriPekerjaan kategoriPekerjaan,
+            ILowonganPekerjaan lowonganPekerjaan,
+            IPerusahaan perusahaan, IUser user,
+            IDashboardAdminService dashboardAdminService,
+            IValidator<KategoriPekerjaanDTO> categoryJobValidator)
         {
             _kategoriPekerjaan = kategoriPekerjaan;
             _lowonganPekerjaan = lowonganPekerjaan;
             _perusahaan = perusahaan;
             _user = user;
             _dashboardAdminService = dashboardAdminService;
+            _categoryJobValidator = categoryJobValidator;
         }
 
 
@@ -47,15 +57,31 @@ namespace PROJECT_CAREERCIN.Controllers
             return View(kategoriList);
         }
 
+        //public IActionResult KategoriPekerjaanAddUpdate(int id)
+        //{
+        //    var data = _kategoriPekerjaan.GetListKategoriPekerjaanById(id);
+        //    return View(data);
+        //}
+
         public IActionResult KategoriPekerjaanAddUpdate(int id)
         {
             var data = _kategoriPekerjaan.GetListKategoriPekerjaanById(id);
-            return View(data);
+            return View(data); // sekarang DTO, cocok dengan view
         }
 
+
         [HttpPost]
-        public IActionResult KategoriPekerjaanAddUpdate(KategoriPekerjaanDTO kategoriPekerjaanDTO)
+        public async Task<IActionResult> KategoriPekerjaanAddUpdate(KategoriPekerjaanDTO kategoriPekerjaanDTO)
         {
+            FluentValidation.Results.ValidationResult validationResult = await _categoryJobValidator.ValidateAsync(kategoriPekerjaanDTO);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(kategoriPekerjaanDTO);
+            }
             if (kategoriPekerjaanDTO.Id == 0)
             {
                 var data = _kategoriPekerjaan.AddKategoriPekerjaaan(kategoriPekerjaanDTO);
@@ -238,7 +264,6 @@ namespace PROJECT_CAREERCIN.Controllers
             }
             return BadRequest("Gagal menghapus User.");
         }
-
 
     }
 }

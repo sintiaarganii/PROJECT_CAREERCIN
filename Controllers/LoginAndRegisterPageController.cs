@@ -4,6 +4,8 @@ using PROJECT_CAREERCIN.Interfaces;
 using PROJECT_CAREERCIN.Models.DTO;
 using PROJECT_CAREERCIN.Models;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace PROJECT_CAREERCIN.Controllers
 {
@@ -14,13 +16,23 @@ namespace PROJECT_CAREERCIN.Controllers
         private readonly ApplicationContext _context;
         private readonly JwtHelper _jwtHelper;
         private readonly ILogger<LoginAndRegisterPageController> _logger;
-        public LoginAndRegisterPageController(IUser userService, ApplicationContext context, JwtHelper jwtHelper, IPerusahaan perusahaan, ILogger<LoginAndRegisterPageController> logger)
+        private readonly IValidator<RegisterUserDTO> _registerUserValidator;
+        private readonly IValidator<RegisterPerusahaanDTO> _registerCompanyValidator;
+
+        public LoginAndRegisterPageController(
+            IUser userService, ApplicationContext context,
+            JwtHelper jwtHelper, IPerusahaan perusahaan,
+            ILogger<LoginAndRegisterPageController> logger, IValidator<RegisterUserDTO> registerUserValidator,
+            IValidator<RegisterPerusahaanDTO> registerCompanyValidator
+            )
         {
             _userService = userService;
             _context = context;
             _jwtHelper = jwtHelper;
             _perusahaan = perusahaan;
             _logger = logger;
+            _registerUserValidator = registerUserValidator;
+            _registerCompanyValidator = registerCompanyValidator;
         }
 
         public IActionResult RegisterUser()
@@ -32,6 +44,7 @@ namespace PROJECT_CAREERCIN.Controllers
         {
             return View();
         }
+
         public IActionResult LoginAdmin()
         {
             return View();
@@ -151,12 +164,7 @@ namespace PROJECT_CAREERCIN.Controllers
                     HttpOnly = false // Untuk diakses JS
                 });
 
-                //// Redirect berdasarkan role
-                //return user.Role == "Admin"
-                //    ? RedirectToAction("Index", "DashboardAdmin")
-                //    : RedirectToAction("Index", "DashboardUser");
 
-                // Cek role
                 if (user.Role != "User")
                 {
                     TempData["Error"] = "Akses ditolak. Hanya Admin yang bisa login.";
@@ -175,79 +183,59 @@ namespace PROJECT_CAREERCIN.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterUserDTO model)
         {
-            if (!ModelState.IsValid)
+            // 1) Jalankan validasi
+            ValidationResult validationResult = await _registerUserValidator.ValidateAsync(model);
+            if (!validationResult.IsValid)
             {
-                TempData["Error"] = "Data tidak valid. Periksa input Anda.";
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(model); // kirim balik ke view + tampilkan error
+            }
+
+            // 2) Lanjut register user
+            var result = await _userService.RegisterAsync(model);
+            if (!result)
+            {
+                TempData["Error"] = "Registrasi gagal.";
                 return View(model);
             }
 
-            try
-            {
-                Console.WriteLine("Memeriksa keberadaan user...");
-                var userExists = await _userService.UserExistsAsync(model.Username, model.Email);
-                if (userExists)
-                {
-                    TempData["Error"] = "Username/email sudah digunakan";
-                    return View(model);
-                }
-
-                Console.WriteLine("Membuat user baru...");
-                var result = await _userService.RegisterAsync(model);
-
-                if (!result)
-                {
-                    TempData["Error"] = "Registrasi gagal";
-                    return View(model);
-                }
-
-                TempData["Success"] = "Registrasi berhasil! Silakan login.";
-                return RedirectToAction("LoginUser");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = $"Gagal registrasi: {ex.Message}";
-                return View(model);
-            }
+            TempData["Success"] = "Registrasi berhasil! Silakan login.";
+            return RedirectToAction("LoginUser");
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> RegisterPerusahaan(RegisterPerusahaanDTO model)
         {
-            if (!ModelState.IsValid)
+            // Manual validasi pakai FluentValidation
+            ValidationResult validationResult = await _registerCompanyValidator.ValidateAsync(model);
+            if (!validationResult.IsValid)
             {
-                TempData["Error"] = "Data tidak valid. Periksa input Anda.";
+                foreach (var error in validationResult.Errors)
+                {
+                    // masukkan error ke ModelState supaya muncul di View
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
                 return View(model);
             }
 
-            try
+            // Lanjut proses simpan perusahaan
+            var result = await _perusahaan.RegisterAsync(model);
+            if (!result)
             {
-                if (await _perusahaan.PerusahaanExistsAsync(model.NamaPerusahaan, model.Email))
-                {
-                    TempData["Error"] = "Nama perusahaan/email sudah terdaftar";
-                    return View(model);
-                }
-
-                var result = await _perusahaan.RegisterAsync(model);
-                if (!result)
-                {
-                    TempData["Error"] = "Registrasi gagal";
-                    return View(model);
-                }
-
-                TempData["Success"] = "Registrasi perusahaan berhasil! Silakan login.";
-                return RedirectToAction("LoginPerusahaan");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = $"Gagal registrasi: {ex.Message}";
+                TempData["Error"] = "Registrasi gagal.";
                 return View(model);
             }
+
+            return RedirectToAction("LoginPerusahaan");
         }
-
 
         [HttpPost]
         public async Task<IActionResult> LoginPerusahaan(LoginPerusahaanDTO model)
@@ -459,7 +447,5 @@ namespace PROJECT_CAREERCIN.Controllers
                 return View("ResetPasswordForUser", model);
             }
         }
-
-
     }
 }

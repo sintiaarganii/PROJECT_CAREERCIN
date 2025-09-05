@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PROJECT_CAREERCIN.Interfaces;
 using PROJECT_CAREERCIN.Models.DB;
@@ -9,25 +11,35 @@ namespace PROJECT_CAREERCIN.Controllers
     [Authorize(Roles = "User")]
     public class DashboardUserController : Controller
     {
+
         private readonly ILowonganPekerjaan _lowonganPekerjaan;
         private readonly ILamaran _lamaran;
         private readonly ILowonganTersimpan _lowonganTersimpan;
         private readonly IHistoryLamaran _historyLamaran;
         private readonly IUser _user;
+        private readonly IValidator<UserProfileUpdateDTO> _updateUserRequestValidator;
+        private readonly IValidator<LamaranAddUpdateDTO> _applicationRequestValidator;
 
-        public DashboardUserController(ILowonganPekerjaan lowonganPekerjaan, ILamaran lamaran, ILowonganTersimpan lowonganTersimpan, IHistoryLamaran historyLamaran, IUser user)
+        public DashboardUserController(ILowonganPekerjaan lowonganPekerjaan,
+            ILamaran lamaran, ILowonganTersimpan lowonganTersimpan,
+            IHistoryLamaran historyLamaran, IUser user,
+            IValidator<UserProfileUpdateDTO> updateUserRequestValidator,
+            IValidator<LamaranAddUpdateDTO> applicationRequestValidator)
         {
             _lowonganPekerjaan = lowonganPekerjaan;
             _lamaran = lamaran;
             _lowonganTersimpan = lowonganTersimpan;
             _historyLamaran = historyLamaran;
             _user = user;
+            _updateUserRequestValidator = updateUserRequestValidator;
+            _applicationRequestValidator = applicationRequestValidator;
         }
-        //================ Job Search Help =============\\
+
         public IActionResult JobSearchHelp()
         {
             return View();
         }
+
         //================ Untuk Profile User =============\\
 
         public IActionResult UserProfile()
@@ -55,10 +67,20 @@ namespace PROJECT_CAREERCIN.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserProfileSetting(UserProfileUpdateDTO dto)
+        public async Task<IActionResult> UserProfileSetting(UserProfileUpdateDTO dto)
         {
             try
             {
+                ValidationResult validationResult = await _updateUserRequestValidator.ValidateAsync(dto);
+                if (!validationResult.IsValid)
+                {
+                    foreach (var error in validationResult.Errors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    }
+                    return View(dto);
+                }
+
                 var data = _user.UpdateUserProfile(dto);
                 if (data)
                 {
@@ -115,6 +137,7 @@ namespace PROJECT_CAREERCIN.Controllers
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
 
+
             if (string.IsNullOrEmpty(userIdClaim))
             {
                 // Kalau token tidak valid atau tidak ada ID, kembalikan Unauthorized
@@ -122,6 +145,17 @@ namespace PROJECT_CAREERCIN.Controllers
             }
 
             lamaranAddUpdateDTO.UserId = int.Parse(userIdClaim); // isi UserId di DTO
+
+
+            ValidationResult validationResult = await _applicationRequestValidator.ValidateAsync(lamaranAddUpdateDTO);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(lamaranAddUpdateDTO);
+            }
 
             if (lamaranAddUpdateDTO.Id == 0)
             {
@@ -243,5 +277,6 @@ namespace PROJECT_CAREERCIN.Controllers
             }
             return BadRequest("Gagal menghapus.");
         }
+
     }
 }

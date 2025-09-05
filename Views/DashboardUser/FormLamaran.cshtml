@@ -128,8 +128,13 @@
         }
 
         @@keyframes progressLoad {
-            from { width: 0; }
-            to { width: 33%; }
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 33%;
+            }
         }
 
         /* Form Styles */
@@ -152,13 +157,13 @@
             font-size: 16px;
         }
 
-        .form-label i {
-            margin-right: 12px;
-            color: var(--primary);
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
+            .form-label i {
+                margin-right: 12px;
+                color: var(--primary);
+                font-size: 18px;
+                width: 24px;
+                text-align: center;
+            }
 
         .form-control {
             width: 100%;
@@ -170,12 +175,12 @@
             background-color: var(--light-gray);
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.2);
-            background-color: var(--secondary);
-        }
+            .form-control:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.2);
+                background-color: var(--secondary);
+            }
 
         select.form-control {
             appearance: none;
@@ -231,11 +236,11 @@
             color: var(--dark-gray);
         }
 
-        .btn-secondary:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+            .btn-secondary:hover {
+                background-color: #e0e0e0;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
 
         .btn-primary {
             background-color: var(--primary);
@@ -243,11 +248,11 @@
             box-shadow: 0 4px 12px rgba(10, 102, 194, 0.3);
         }
 
-        .btn-primary:hover {
-            background-color: #084a8e;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(10, 102, 194, 0.4);
-        }
+            .btn-primary:hover {
+                background-color: #084a8e;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(10, 102, 194, 0.4);
+            }
 
         .btn i {
             margin-right: 10px;
@@ -256,8 +261,15 @@
 
         /* Animations */
         @@keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .form-group {
@@ -266,37 +278,57 @@
             transform: translateY(10px);
         }
 
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.2s; }
-        .form-group:nth-child(3) { animation-delay: 0.3s; }
-        .form-group:nth-child(4) { animation-delay: 0.4s; }
-        .form-group:nth-child(5) { animation-delay: 0.5s; }
-        .form-group:nth-child(6) { animation-delay: 0.6s; }
-        .form-group:nth-child(7) { animation-delay: 0.7s; }
+            .form-group:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+
+            .form-group:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .form-group:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+
+            .form-group:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+
+            .form-group:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+
+            .form-group:nth-child(6) {
+                animation-delay: 0.6s;
+            }
+
+            .form-group:nth-child(7) {
+                animation-delay: 0.7s;
+            }
 
         /* Responsive Design */
         @@media (max-width: 768px) {
             .application-form {
                 padding: 30px 25px;
             }
-            
+
             .application-header {
                 padding: 25px 20px;
             }
-            
+
             .application-title {
                 font-size: 24px;
             }
-            
+
             .form-actions {
                 flex-direction: column;
             }
-            
+
             .btn {
                 width: 100%;
                 min-width: auto;
             }
-            
+
             .job-info {
                 width: 100%;
                 text-align: center;
@@ -307,15 +339,15 @@
             main {
                 padding: 20px 15px;
             }
-            
+
             .application-form {
                 padding: 25px 20px;
             }
-            
+
             .form-control {
                 padding: 14px 16px;
             }
-            
+
             .btn {
                 padding: 14px 20px;
             }
@@ -338,10 +370,10 @@
             transition: var(--transition);
         }
 
-        .file-input-label:hover {
-            border-color: var(--primary);
-            background-color: var(--primary-light);
-        }
+            .file-input-label:hover {
+                border-color: var(--primary);
+                background-color: var(--primary-light);
+            }
 
         .file-input-text {
             color: var(--gray);
@@ -378,13 +410,13 @@
                         <i class="fas fa-file-alt"></i> CareerCin
                     </h1>
                     <p class="application-subtitle">Complete your application to join our team</p>
-                    
+
                     <div class="job-info">
                         <div class="job-title">Software Engineer</div>
                         <div class="company-name">Tech Solutions Inc.</div>
                     </div>
                 </div>
-                
+
                 <div class="application-form">
                     <!-- Progress Bar -->
                     <div class="progress-container">
@@ -400,7 +432,7 @@
                                 <i class="fas fa-user"></i> Full Name
                             </label>
                             <input asp-for="Nama" class="form-control" placeholder="Enter your full name" required />
-                            <span asp-validation-for="Nama" class="text-danger"></span>
+                            <span style="color:red" asp-validation-for="Nama" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -408,7 +440,7 @@
                                 <i class="fas fa-envelope"></i> Email
                             </label>
                             <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email address" required />
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <span style="color:red" asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -416,7 +448,7 @@
                                 <i class="fas fa-phone"></i> Phone Number
                             </label>
                             <input asp-for="NoHP" type="tel" class="form-control" placeholder="Enter your phone number" required />
-                            <span asp-validation-for="NoHP" class="text-danger"></span>
+                            <span style="color:red" asp-validation-for="NoHP" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -459,9 +491,10 @@
                                     <span class="file-input-button">Browse</span>
                                 </label>
                                 <input asp-for="CV" type="file" accept=".pdf,.doc,.docx" class="form-control" id="CV" />
+                                <span style="color:red" asp-validation-for="CV" class="text-danger"></span>
+
                             </div>
                             <div class="file-input-hint">Accepted formats: PDF (Max 5MB)</div>
-                            @* <span asp-validation-for="CV" class="text-danger"></span> *@
                         </div>
 
 
@@ -491,7 +524,7 @@
             const fileName = document.getElementById('file-name');
 
             // File input handling
-            fileInput.addEventListener('change', function() {
+            fileInput.addEventListener('change', function () {
                 if (this.files.length > 0) {
                     fileName.textContent = this.files[0].name;
                 } else {
@@ -501,23 +534,23 @@
 
             // Drag and drop for file input
             const fileInputLabel = document.querySelector('.file-input-label');
-            
-            fileInputLabel.addEventListener('dragover', function(e) {
+
+            fileInputLabel.addEventListener('dragover', function (e) {
                 e.preventDefault();
                 this.style.borderColor = 'var(--primary)';
                 this.style.backgroundColor = 'var(--primary-light)';
             });
-            
-            fileInputLabel.addEventListener('dragleave', function() {
+
+            fileInputLabel.addEventListener('dragleave', function () {
                 this.style.borderColor = 'var(--border-color)';
                 this.style.backgroundColor = 'var(--light-gray)';
             });
-            
-            fileInputLabel.addEventListener('drop', function(e) {
+
+            fileInputLabel.addEventListener('drop', function (e) {
                 e.preventDefault();
                 this.style.borderColor = 'var(--border-color)';
                 this.style.backgroundColor = 'var(--light-gray)';
-                
+
                 if (e.dataTransfer.files.length) {
                     fileInput.files = e.dataTransfer.files;
                     fileName.textContent = e.dataTransfer.files[0].name;
@@ -547,31 +580,31 @@
             });
 
             // Tampilkan popup success jika ada pesan dari controller
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <text>
-                Swal.fire({
-                    title: 'Success!',
-                    text: '@TempData["SuccessMessage"]',
-                    icon: 'success',
-                    confirmButtonColor: '#0a66c2'
-                });
-                </text>
-            }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                        Swal.fire({
+                            title: 'Success!',
+                        text: '@TempData["SuccessMessage"]',
+                        icon: 'success',
+                        confirmButtonColor: '#0a66c2'
+                            });
+            </text>
+        }
 
-            // Tampilkan popup error jika ada pesan dari controller
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <text>
-                Swal.fire({
-                    title: 'Error!',
-                    text: '@TempData["ErrorMessage"]',
-                    icon: 'error',
-                    confirmButtonColor: '#d33'
+                // Tampilkan popup error jika ada pesan dari controller
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                        Swal.fire({
+                            title: 'Error!',
+                        text: '@TempData["ErrorMessage"]',
+                        icon: 'error',
+                        confirmButtonColor: '#d33'
+                            });
+            </text>
+        }
                 });
-                </text>
-            }
-        });
     </script>
 </body>
 </html>
